@@ -46,8 +46,8 @@ export const imageFileSchema = z.object({
 });
 
 export const coordinatesSchema = z.object({
-  rightAscension: z.string().regex(/^\d{2}h\s\d{2}m\s\d{2}(\.\d+)?s$/),
-  declination: z.string().regex(/^[+-]\d{2}°\s\d{2}'\s\d{2}(\.\d+)?\"$/)
+  rightAscension: z.string(),
+  declination: z.string()
 });
 
 export const equipmentSchema = z.object({
