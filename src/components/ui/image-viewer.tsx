@@ -14,7 +14,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
   previewUrl, 
   publishImageUrl, 
   alt, 
-  aspectRatio = 16 / 9,
+  aspectRatio = 3 / 2,
   onClick 
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
