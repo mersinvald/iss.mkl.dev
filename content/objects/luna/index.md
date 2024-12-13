@@ -9,7 +9,7 @@ name: Earth's Moon
 type: Natural Satellite
 categories:
   - Planet Satellite
-  - Solar System Object
+  - Solar System
 coordinates:
   rightAscension: Variable (orbits Earth)
   declination: Variable (orbits Earth)
