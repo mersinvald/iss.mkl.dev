@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 import { Loader2 } from 'lucide-react';
 
 export interface ImageViewerProps {
   previewUrl: string;
   publishImageUrl: string;
   alt: string;
-  aspectRatio?: number; // Allow custom aspect ratio
+  aspectRatio?: number;
   onClick?: () => void;
 }
 
@@ -13,28 +14,10 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
   previewUrl, 
   publishImageUrl, 
   alt, 
-  aspectRatio = 16 / 9, // Default 16:9 aspect ratio
+  aspectRatio = 16 / 9,
   onClick 
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const image = new Image();
-    image.src = publishImageUrl;
-    
-    image.onload = () => {
-      setIsLoading(false);
-    };
-
-    image.onerror = () => {
-      setIsLoading(false);
-    };
-
-    return () => {
-      image.onload = null;
-      image.onerror = null;
-    };
-  }, [publishImageUrl]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   return (
     <div 
@@ -46,28 +29,30 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
       onClick={onClick}
     >
       <div className="absolute inset-0">
-        {/* Blurred Preview */}
-        <img 
+        {/* Preview Image */}
+        <Image
           src={previewUrl} 
           alt={`${alt} - Preview`}
+          fill
           className={`
-            absolute inset-0 w-full h-full object-cover
+            absolute inset-0 object-cover
             transition-all duration-500 ease-in-out
-            ${isLoading ? 'blur-sm opacity-80' : 'opacity-0'}
+            ${!isLoaded ? 'blur-sm opacity-80' : 'opacity-0'}
           `}
+          onLoadingComplete={() => setIsLoaded(true)}
         />
 
         {/* Full Image */}
-        {!isLoading && (
-          <img 
-            src={publishImageUrl}
-            alt={alt}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        )}
+        <Image
+          src={publishImageUrl}
+          alt={alt}
+          fill
+          className="absolute inset-0 object-cover"
+          onLoadingComplete={() => setIsLoaded(true)}
+        />
 
         {/* Loading Overlay */}
-        {isLoading && (
+        {!isLoaded && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50">
             <Loader2 
               className="animate-spin text-white" 

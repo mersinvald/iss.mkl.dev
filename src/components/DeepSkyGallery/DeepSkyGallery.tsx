@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { Search } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/components/ui/input'
+import Image from 'next/image';
 
 type GalleryObject = {
   designation: {
@@ -103,11 +104,13 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
           >
             <Card className="h-full hover:ring-2 hover:ring-blue-500 transition-all">
               {obj.previewImage ? (
-                <div className="aspect-video overflow-hidden rounded-t-lg">
-                  <img
+                <div className="aspect-video overflow-hidden rounded-t-lg relative">
+                  <Image
                     src={obj.previewImage}
                     alt={obj.name}
-                    className="w-full h-full object-cover object-center"
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
               ) : (
