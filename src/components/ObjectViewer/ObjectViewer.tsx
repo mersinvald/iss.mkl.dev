@@ -81,8 +81,9 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
       <div className="relative bg-black rounded-lg overflow-hidden">
         <ImageViewer 
           previewUrl={currentImage.previewImageUrl} 
-          publishImageUrl={currentImage.publishImageUrl}
+          fullImageUrl={currentImage.publishImageUrl}
           alt={`${name} - Image ${currentImageIndex + 1}`}
+          onClick={() => {}}
         />
         
         {observations.length > 1 && (
