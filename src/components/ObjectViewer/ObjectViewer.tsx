@@ -80,10 +80,10 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
       {/* Image Viewer */}
       <div className="relative bg-black rounded-lg overflow-hidden">
         <ImageViewer 
-          previewUrl={currentImage.previewImageUrl} 
           fullImageUrl={currentImage.publishImageUrl}
           alt={`${name} - Image ${currentImageIndex + 1}`}
           onClick={() => {}}
+          containerAspectRatio={3/2}
         />
         
         {observations.length > 1 && (
