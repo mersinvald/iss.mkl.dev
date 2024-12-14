@@ -2,7 +2,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Progress } from '@/components/ui/progress';
 import { ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
 
-const CustomImageViewer = ({
+interface CustomImageViewerProps {
+  fullImageUrl: string;
+  alt: string;
+  onClick?: () => void;
+  containerAspectRatio?: number;
+}
+
+interface Dimensions {
+  width: number;
+  height: number;
+}
+
+interface Position {
+  x: number;
+  y: number;
+}
+
+const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
   fullImageUrl,
   alt,
   onClick,
@@ -10,19 +27,19 @@ const CustomImageViewer = ({
 }) => {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [zoom, setZoom] = useState(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState<number>(0);
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [dimensions, setDimensions] = useState(null);
+  const [dragStart, setDragStart] = useState<Position>({ x: 0, y: 0 });
+  const [dimensions, setDimensions] = useState<Dimensions | null>(null);
   const [isReady, setIsReady] = useState(false);
-  const [touches, setTouches] = useState([]);
-  const lastDistance = useRef(null);
-  const containerRef = useRef(null);
+  const [touches, setTouches] = useState<React.Touch[]>([]);
+  const lastDistance = useRef<number | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef(null);
-  const initialZoomRef = useRef(null);
+  const initialZoomRef = useRef<number | null>(null);
 
-  const calculateBaseDimensions = (naturalWidth, naturalHeight) => {
+  const calculateBaseDimensions = (naturalWidth: number, naturalHeight: number): Dimensions | null => {
     if (!containerRef.current) return null;
 
     const viewportWidth = window.innerWidth * 0.9;
@@ -47,10 +64,10 @@ const CustomImageViewer = ({
     return { width: baseWidth, height: baseHeight };
   };
 
-  const calculateInitialZoom = (baseDimensions) => {
-    if (!containerRef.current || !baseDimensions) return null;
-    
+  const calculateInitialZoom = (baseDimensions: Dimensions): number => {
     const container = containerRef.current;
+    if (!container || !baseDimensions) return 0;
+
     const containerWidth = container.offsetWidth;
     const containerHeight = containerWidth / containerAspectRatio;
     
@@ -137,7 +154,7 @@ const CustomImageViewer = ({
     }
   }, [zoom, dimensions, loading]);
 
-  const handleZoom = (factor, clientX = null, clientY = null) => {
+  const handleZoom = (factor: number, clientX: number|null = null, clientY: number|null = null) => {
     if (zoom === null || !initialZoomRef.current || !containerRef.current) return;
     
     const container = containerRef.current;
@@ -172,7 +189,7 @@ const CustomImageViewer = ({
     });
   };
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (zoom !== initialZoomRef.current) {
       setIsDragging(true);
       setDragStart({
@@ -182,7 +199,7 @@ const CustomImageViewer = ({
     }
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isDragging && dimensions && zoom !== null) {
       const newX = e.clientX - dragStart.x;
       const newY = e.clientY - dragStart.y;
@@ -223,18 +240,18 @@ const CustomImageViewer = ({
     height: `${dimensions.height}px`,
     transform: `translate(-50%, -50%) translate(${position.x}px, ${position.y}px) scale(${zoom})`,
     opacity: isReady ? 1 : 0,
-    visibility: isReady ? 'visible' : 'hidden'
-  } : { opacity: 0, visibility: 'hidden' };
+    visibility: isReady ? 'visible' as const : 'hidden' as const
+  } : { opacity: 0, visibility: 'hidden' as const } as React.CSSProperties;
 
-  const getDistance = (touches) => {
-    if (touches.length < 2) return null;
+  const getDistance = (touches: React.Touch[]): number => {
+    if (touches.length < 2) return 0;
     return Math.hypot(
       touches[1].clientX - touches[0].clientX,
       touches[1].clientY - touches[0].clientY
     );
   };
   
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>): void => {
     const currentTouches = Array.from(e.touches);
     setTouches(currentTouches);
     
@@ -249,7 +266,7 @@ const CustomImageViewer = ({
     }
   };
   
-  const handleTouchMove = (e) => {
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     e.preventDefault(); // Prevent browser gestures
     const currentTouches = Array.from(e.touches);
   
