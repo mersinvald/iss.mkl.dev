@@ -76,6 +76,7 @@ export const observationSchema = z.object({
     mount: z.string(),
     filters: z.array(z.string()).optional(),
     guiding: z.string().optional(),
+    controller: z.string().optional(),
     other: z.array(z.string()).optional()
   }),
   conditions: z.object({
@@ -92,17 +93,29 @@ export const observationSchema = z.object({
       publish: z.string(),    // Path relative to public/images/[designation]/[observation-date]/
       full: z.string().optional(), // Path relative to public/images/[designation]/[observation-date]/
       raw: z.string().optional(), // Path relative to public/images/[designation]/[observation-date]/
-      processingDetails: z.string().optional()
+      abstract: z.string().optional()
     })
   }),
   exposure: z.object({
     total: z.number(), // in seconds
+    focal_length: z.number(),
+    focal_ratio: z.string(),
     subFrames: z.array(z.object({
       duration: z.number(),
       count: z.number(),
       binning: z.number().optional(),
       gain: z.number().optional(),
-      filter: z.string().optional()
+      filter: z.string().optional(),
+      resolution: z.object({
+        width: z.number(),
+        height: z.number()
+      }).optional(),
+      bitdepth: z.number().optional(),
+      xpixsz: z.number().optional(),
+      ypixsz: z.number().optional(),
+      tempavg: z.number().optional(),
+      focusavg: z.number().optional(),
+      bayerpat: z.string().optional()
     }))
   }),
   notes: z.string().optional(),
