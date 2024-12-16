@@ -103,7 +103,7 @@ export class ContentManager {
         })
     );
   
-    return observations.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return observations.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }
 
   /**

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import ImageViewer from '@/components/ui/image-viewer';
@@ -39,6 +39,8 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   description
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // Add a key to force remount of ImageViewer when image changes
+  const [imageKey, setImageKey] = useState(0);
   
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -48,16 +50,25 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   const currentImage = observations[currentImageIndex];
   
   const nextImage = () => {
-    setCurrentImageIndex((current) => 
-      current === observations.length - 1 ? current : current + 1
-    );
+    setCurrentImageIndex((current) => {
+      const newIndex = current === observations.length - 1 ? current : current + 1;
+      setImageKey(prev => prev + 1); // Increment key to force remount
+      return newIndex;
+    });
   };
 
   const previousImage = () => {
-    setCurrentImageIndex((current) => 
-      current === 0 ? current : current - 1
-    );
+    setCurrentImageIndex((current) => {
+      const newIndex = current === 0 ? current : current - 1;
+      setImageKey(prev => prev + 1); // Increment key to force remount
+      return newIndex;
+    });
   };
+
+  // Reset image key when observations change
+  useEffect(() => {
+    setImageKey(prev => prev + 1);
+  }, [observations]);
 
   return (
     <div className="space-y-8">
@@ -79,33 +90,37 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
 
       {/* Image Viewer */}
       <div className="relative bg-black rounded-lg overflow-hidden">
-        <ImageViewer 
-          fullImageUrl={currentImage.publishImageUrl}
-          alt={`${name} - Image ${currentImageIndex + 1}`}
-          onClick={() => {}}
-          containerAspectRatio={3/2}
-        />
-        
-        {observations.length > 1 && (
-          <div className="absolute inset-0 flex items-center justify-between p-4">
-            <button
-              onClick={previousImage}
-              disabled={currentImageIndex === 0}
-              className="p-2 rounded-full bg-black/50 text-white disabled:opacity-50"
-            >
-              <ChevronLeft className="h-6 w-6" />
-            </button>
-            <button
-              onClick={nextImage}
-              disabled={currentImageIndex === observations.length - 1}
-              className="p-2 rounded-full bg-black/50 text-white disabled:opacity-50"
-            >
-              <ChevronRight className="h-6 w-6" />
-            </button>
-          </div>
-        )}
+        <div className="relative"> {/* Added wrapper div */}
+          <ImageViewer 
+            key={imageKey}
+            fullImageUrl={currentImage.publishImageUrl}
+            alt={`${name} - Image ${currentImageIndex + 1}`}
+            onClick={() => {}}
+            containerAspectRatio={3/2}
+          />
+          
+          {observations.length > 1 && (
+            <div className="absolute inset-0 flex items-center justify-between p-4 pointer-events-none"> {/* Added pointer-events-none */}
+              <button
+                onClick={previousImage}
+                disabled={currentImageIndex === 0}
+                className="p-2 rounded-full bg-black/50 text-white disabled:opacity-50 pointer-events-auto" /* Added pointer-events-auto */
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+              <button
+                onClick={nextImage}
+                disabled={currentImageIndex === observations.length - 1}
+                className="p-2 rounded-full bg-black/50 text-white disabled:opacity-50 pointer-events-auto" /* Added pointer-events-auto */
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
+      {/* Rest of the component remains the same */}
       {/* Observation Details */}
       <div className="bg-gray-800 rounded-lg p-6">
         <h2 className="text-xl font-semibold mb-4">Observation Details</h2>
