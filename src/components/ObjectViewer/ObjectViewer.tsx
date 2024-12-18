@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import ImageViewer from '@/components/ui/image-viewer';
@@ -14,6 +15,7 @@ interface EquipmentInfo {
 }
 
 interface ObjectObservation {
+  id: string;
   previewImageUrl: string;
   publishImageUrl: string;
   dateCaptured: string;
@@ -29,6 +31,7 @@ interface ObjectViewerProps {
   categories: string[];
   observations: ObjectObservation[];
   description: string;
+  initialObservationIndex?: number;
 }
 
 export const ObjectViewer: React.FC<ObjectViewerProps> = ({
@@ -36,12 +39,27 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   name,
   categories,
   observations,
-  description
+  description,
+  initialObservationIndex = 0
 }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  // Add a key to force remount of ImageViewer when image changes
+  const [currentImageIndex, setCurrentImageIndex] = useState(initialObservationIndex);
   const [imageKey, setImageKey] = useState(0);
-  
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Effect for URL updates
+  useEffect(() => {
+    const currentObservationId = observations[currentImageIndex].id;
+    const currentPath = pathname?.split('/');
+    const lastSegment = currentPath?.[currentPath.length - 1];
+
+    // Only update if the current URL doesn't match the current observation
+    if (lastSegment !== currentObservationId) {
+      const basePath = currentPath?.slice(0, -1).join('/') || '';
+      router.replace(`${basePath}/${currentObservationId}`, { scroll: false });
+    }
+  }, [currentImageIndex, observations, pathname, router]);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-GB');
@@ -52,7 +70,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   const nextImage = () => {
     setCurrentImageIndex((current) => {
       const newIndex = current === observations.length - 1 ? current : current + 1;
-      setImageKey(prev => prev + 1); // Increment key to force remount
+      setImageKey(prev => prev + 1);
       return newIndex;
     });
   };
@@ -60,7 +78,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   const previousImage = () => {
     setCurrentImageIndex((current) => {
       const newIndex = current === 0 ? current : current - 1;
-      setImageKey(prev => prev + 1); // Increment key to force remount
+      setImageKey(prev => prev + 1);
       return newIndex;
     });
   };
@@ -72,7 +90,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
 
   return (
     <div className="space-y-8">
-      {/* Header */}
+      {/* Component JSX remains exactly the same */}
       <div>
         <h1 className="text-3xl font-bold mb-2">
           <span className="font-mono text-blue-400">{designation}</span>
@@ -88,9 +106,8 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
         </div>
       </div>
 
-      {/* Image Viewer */}
       <div className="relative bg-black rounded-lg overflow-hidden">
-        <div className="relative"> {/* Added wrapper div */}
+        <div className="relative">
           <ImageViewer 
             key={imageKey}
             fullImageUrl={currentImage.publishImageUrl}
@@ -100,18 +117,18 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
           />
           
           {observations.length > 1 && (
-            <div className="absolute inset-0 flex items-center justify-between p-4 pointer-events-none"> {/* Added pointer-events-none */}
+            <div className="absolute inset-0 flex items-center justify-between p-4 pointer-events-none">
               <button
                 onClick={previousImage}
                 disabled={currentImageIndex === 0}
-                className="p-2 rounded-full bg-black/50 text-white disabled:opacity-50 pointer-events-auto" /* Added pointer-events-auto */
+                className="p-2 rounded-full bg-black/50 text-white disabled:opacity-50 pointer-events-auto"
               >
                 <ChevronLeft className="h-6 w-6" />
               </button>
               <button
                 onClick={nextImage}
                 disabled={currentImageIndex === observations.length - 1}
-                className="p-2 rounded-full bg-black/50 text-white disabled:opacity-50 pointer-events-auto" /* Added pointer-events-auto */
+                className="p-2 rounded-full bg-black/50 text-white disabled:opacity-50 pointer-events-auto"
               >
                 <ChevronRight className="h-6 w-6" />
               </button>
@@ -120,7 +137,6 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
         </div>
       </div>
 
-      {/* Rest of the component remains the same */}
       {/* Observation Details */}
       <div className="bg-gray-800 rounded-lg p-6">
         <h2 className="text-xl font-semibold mb-4">Observation Details</h2>

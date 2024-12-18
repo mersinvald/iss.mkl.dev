@@ -126,7 +126,8 @@ export class ContentManager {
           ...object,
           previewImage,
           observationCount: observations.length,
-          lastObservation: latestObservation?.date
+          lastObservation: latestObservation?.date,
+          lastObservationId: latestObservation?.id
         };
       })
     );

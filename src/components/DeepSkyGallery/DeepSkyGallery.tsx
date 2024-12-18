@@ -2,11 +2,10 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Search } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input'
 import Image from 'next/image';
+import CategoryFilter from '@/components/ui/category-filter';
 
 type GalleryObject = {
   designation: {
@@ -18,6 +17,7 @@ type GalleryObject = {
   previewImage: string | null;
   observationCount: number;
   lastObservation: string;
+  lastObservationId: string;  // Add this
   type: string;
 };
 
@@ -50,7 +50,7 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
   };
 
   const filteredObjects = useMemo(() => {
-    return initialObjects.filter(obj => {
+    const filtered = initialObjects.filter(obj => {
       // Search in designation (primary and alternates) and name
       const searchMatch = (
         obj.designation.primary.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -59,48 +59,38 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
           alt.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
-
+  
       // Filter by selected categories
       const categoryMatch = selectedCategories.length === 0 ||
         selectedCategories.some(cat => obj.categories.includes(cat));
-
+  
       return searchMatch && categoryMatch;
     });
+  
+    // Sort by last observation date (newest first)
+    return filtered.sort((a, b) => 
+      new Date(b.lastObservation).getTime() - new Date(a.lastObservation).getTime()
+    );
   }, [initialObjects, searchTerm, selectedCategories]);
 
   return (
     <div className="space-y-6">
       {/* Search and Filter Section */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-          <Input
-            placeholder="Search objects..."
-            className="pl-10"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {initialCategories.map(category => (
-            <Badge
-              key={category}
-              variant={selectedCategories.includes(category) ? "default" : "secondary"}
-              className="cursor-pointer"
-              onClick={() => toggleCategory(category)}
-            >
-              {category}
-            </Badge>
-          ))}
-        </div>
-      </div>
+      <CategoryFilter
+        categories={initialCategories}
+        selectedCategories={selectedCategories}
+        onCategoryToggle={toggleCategory}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        searchPlaceholder="Search objects..."
+      />
 
       {/* Gallery Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filteredObjects.map(obj => (
           <Link
             key={obj.designation.primary}
-            href={`/${obj.designation.primary.toLowerCase()}`}
+            href={`/objects/${obj.designation.primary.toLowerCase()}/${obj.lastObservationId}`}
           >
             <Card className="h-full hover:ring-2 hover:ring-blue-500 transition-all">
               {obj.previewImage ? (

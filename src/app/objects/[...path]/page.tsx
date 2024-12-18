@@ -1,9 +1,10 @@
+// src/app/[...path]/page.tsx
 import { ContentManager } from '@/lib/contentManager';
 import { ObjectViewer } from '@/components/ObjectViewer/ObjectViewer';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-// Generate static paths for all objects
+// Update to handle observation ID
 export async function generateStaticParams() {
   const manager = new ContentManager({
     contentDir: process.cwd() + '/content',
@@ -11,15 +12,30 @@ export async function generateStaticParams() {
   });
   
   const objects = await manager.loadAllObjects();
-  return objects.map((obj) => ({
-    path: [obj.designation.primary.toLowerCase()]
-  }));
+  const paths = [];
+
+  for (const obj of objects) {
+    // Base object path
+    paths.push({
+      path: [obj.designation.primary.toLowerCase()]
+    });
+
+    // Load observations and create paths for each
+    const observations = await manager.loadObservations(obj.designation.primary);
+    observations.forEach(obs => {
+      paths.push({
+        path: [obj.designation.primary.toLowerCase(), obs.id]
+      });
+    });
+  }
+
+  return paths;
 }
 
 export default async function Page({ params }: { params: Promise<{ path: string[] }> }) {
   const path = (await params).path;
-
   const designation = path[0];
+  const observationId = path[1]; // Will be undefined for base object path
   
   const manager = new ContentManager({
     contentDir: process.cwd() + '/content',
@@ -28,6 +44,15 @@ export default async function Page({ params }: { params: Promise<{ path: string[
 
   const object = await manager.loadObject(designation);
   const observations = await manager.loadObservations(designation);
+
+  // Find the initial observation index
+  let initialObservationIndex = 0;
+  if (observationId) {
+    const index = observations.findIndex(obs => obs.id === observationId);
+    if (index !== -1) {
+      initialObservationIndex = index;
+    }
+  }
 
   return (
     <main className="min-h-screen bg-gray-900 py-8">
@@ -44,7 +69,9 @@ export default async function Page({ params }: { params: Promise<{ path: string[
           designation={object.designation.primary}
           name={object.name}
           categories={object.categories}
+          initialObservationIndex={initialObservationIndex}
           observations={observations.map(obs => ({
+            id: obs.id,
             previewImageUrl: obs.images.processed.preview,
             publishImageUrl: obs.images.processed.publish,
             dateCaptured: obs.date,
