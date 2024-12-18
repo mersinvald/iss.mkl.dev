@@ -23,6 +23,7 @@ metadata:
   discoveryDate: 964
 observations:
   - fd85f3a1-89b2-4771-9311-0269f244dfff
+  - 18732d59-ff73-4dbf-8ec8-cf4185780a5b
 lastModified: 2024-03-15T12:00:00Z
 ---
 The Andromeda Galaxy is the nearest large galaxy to the Milky Way and is visible to the naked eye from Earth.
