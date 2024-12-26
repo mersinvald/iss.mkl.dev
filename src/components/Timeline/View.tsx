@@ -130,7 +130,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories })
 
               {observation.notes && (
                 <p className="text-gray-400 mt-2 line-clamp-3">
-                  {observation.notes}
+                  {observation.notes.split('\n')[0]}
                 </p>
               )}
             </div>
