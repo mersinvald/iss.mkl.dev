@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import ImageViewer from '@/components/ui/image-viewer';
+import Notes from '@/components/ObjectViewer/Notes';
 
 interface EquipmentInfo {
   telescope?: string;
@@ -204,12 +205,9 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
       {/* Notes */}
       {currentImage.notes && (
         <div className="bg-gray-800 rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">Notes</h2>
-          {currentImage.notes.split('\n\n').map((paragraph, index) => (
-            <p key={index} className="mb-4">
-              {paragraph}
-            </p>
-          ))}
+        <Notes 
+          content={currentImage.notes}
+        />
         </div>
       )}
 

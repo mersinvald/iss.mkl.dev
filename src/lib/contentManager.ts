@@ -97,7 +97,7 @@ export class ContentManager {
             ...processedData,
             images: {
               ...data.images,
-              processed: processedImage
+              processed: processedImage,
             }
           });
         })
