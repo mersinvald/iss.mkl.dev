@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Progress } from '@/components/ui/progress';
-import { ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
+import { ZoomIn, ZoomOut, Maximize2, Download } from 'lucide-react';
 
 interface CustomImageViewerProps {
   fullImageUrl: string;
   alt: string;
+  objectName: string; 
+  observationDate: string; 
   onClick?: () => void;
   containerAspectRatio?: number;
 }
@@ -22,6 +24,8 @@ interface Position {
 const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
   fullImageUrl,
   alt,
+  objectName,
+  observationDate,
   onClick,
   containerAspectRatio = 3/2,
 }) => {
@@ -75,6 +79,12 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
     const heightRatio = containerHeight / baseDimensions.height;
     
     return Math.max(widthRatio, heightRatio) * 1.01;
+  };
+
+  const getDownloadFilename = () => {
+    const sanitizedName = objectName.replace(/\s+/g, '_').toLowerCase();
+    const sanitizedDate = observationDate.replace(/\s+/g, '_').toLowerCase();
+    return `iss.mkl.dev_${sanitizedName}_${sanitizedDate}${fullImageUrl.match(/\.[^.]+$/)?.[0] || ''}`;
   };
 
   useEffect(() => {
@@ -371,6 +381,14 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
 
       {isReady && (
         <div className="absolute bottom-4 right-4 flex gap-2">
+          <a
+            href={fullImageUrl}
+            download={getDownloadFilename()}
+            className="p-2 bg-black/50 rounded-full text-white hover:bg-black/70"
+            onClick={(e) => e.stopPropagation()}
+          > 
+            <Download size={20} />
+          </a>
           <button
             onClick={() => handleZoom(-0.5)}
             disabled={zoom <= 0.1}

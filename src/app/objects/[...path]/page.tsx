@@ -72,6 +72,7 @@ export default async function Page({ params }: { params: Promise<{ path: string[
           initialObservationIndex={initialObservationIndex}
           observations={observations.map(obs => ({
             id: obs.id,
+            objectName: object.name,
             previewImageUrl: obs.images.processed.preview,
             publishImageUrl: obs.images.processed.publish,
             dateCaptured: obs.date,

@@ -17,6 +17,7 @@ interface EquipmentInfo {
 
 interface ObjectObservation {
   id: string;
+  objectName: string;
   previewImageUrl: string;
   publishImageUrl: string;
   dateCaptured: string;
@@ -113,6 +114,8 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
             key={imageKey}
             fullImageUrl={currentImage.publishImageUrl}
             alt={`${name} - Image ${currentImageIndex + 1}`}
+            objectName={currentImage.objectName}
+            observationDate={currentImage.dateCaptured}
             onClick={() => {}}
             containerAspectRatio={3/2}
           />
