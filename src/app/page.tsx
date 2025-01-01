@@ -15,9 +15,6 @@ export default async function Home() {
     <>
       <Navigation />
       <main className="mx-auto max-w-7xl px-4 py-8">
-        <div className="flex items-baseline mb-4">
-          <h2 className="text-sm text-gray-500">My amateur astrophotography journey documented</h2>
-        </div>
         <DeepSkyGallery initialObjects={objects} initialCategories={categories} />
       </main>
     </>
