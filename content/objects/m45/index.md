@@ -22,7 +22,9 @@ metadata:
   distance: 444 light-years
   discoveredBy: Various (known since ancient times)
   discoveryDate: Prehistoric
-observations: []
+observations: 
+  - 0c064b94-8256-48a0-afdc-c2451197f845
+  - b42be726-83a7-4fb5-8a35-524dda471533
 lastModified: 2024-03-15T12:00:00Z
 ---
 The Pleiades is a stunning open star cluster visible to the naked eye, known for its distinctive blue-white stars and surrounding reflection nebulosity.
