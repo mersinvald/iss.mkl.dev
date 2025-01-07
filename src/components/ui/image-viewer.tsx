@@ -46,24 +46,16 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
   const calculateBaseDimensions = (naturalWidth: number, naturalHeight: number): Dimensions | null => {
     if (!containerRef.current) return null;
 
-    const viewportWidth = window.innerWidth * 0.9;
-    const viewportHeight = window.innerHeight * 0.9;
+    const container = containerRef.current;
+    const containerRect = container.getBoundingClientRect();
+    const containerWidth = containerRect.width;
+
     const imageAspect = naturalWidth / naturalHeight;
-    
-    let baseWidth, baseHeight;
-    
-    if (naturalWidth > viewportWidth || naturalHeight > viewportHeight) {
-      if (imageAspect > viewportWidth / viewportHeight) {
-        baseWidth = viewportWidth;
-        baseHeight = viewportWidth / imageAspect;
-      } else {
-        baseHeight = viewportHeight;
-        baseWidth = viewportHeight * imageAspect;
-      }
-    } else {
-      baseWidth = naturalWidth;
-      baseHeight = naturalHeight;
-    }
+        
+    // Always set width to container width
+    const baseWidth = containerWidth;
+    // Calculate height while maintaining aspect ratio
+    const baseHeight = containerWidth / imageAspect;
     
     return { width: baseWidth, height: baseHeight };
   };
@@ -72,19 +64,14 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
     const container = containerRef.current;
     if (!container || !baseDimensions) return 0;
 
-    const containerWidth = container.offsetWidth;
-    const containerHeight = containerWidth / containerAspectRatio;
+    const containerRect = container.getBoundingClientRect();
+    const containerWidth = containerRect.width;
     
+    // Always use width ratio to fill viewport width
     const widthRatio = containerWidth / baseDimensions.width;
-    const heightRatio = containerHeight / baseDimensions.height;
     
-    return Math.max(widthRatio, heightRatio) * 1.01;
-  };
-
-  const getDownloadFilename = () => {
-    const sanitizedName = objectName.replace(/\s+/g, '_').toLowerCase();
-    const sanitizedDate = observationDate.replace(/\s+/g, '_').toLowerCase();
-    return `iss.mkl.dev_${sanitizedName}_${sanitizedDate}${fullImageUrl.match(/\.[^.]+$/)?.[0] || ''}`;
+    // Add a small buffer (1%) for smooth edges
+    return widthRatio * 1.01;
   };
 
   useEffect(() => {
@@ -93,13 +80,18 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
 
       const img = new Image();
       img.onload = () => {
-        const newDimensions = calculateBaseDimensions(img.naturalWidth, img.naturalHeight);
-        if (newDimensions) {
-          setDimensions(newDimensions);
-          const newZoom = calculateInitialZoom(newDimensions);
-          initialZoomRef.current = newZoom;
-          setZoom(newZoom);
-        }
+        // Force a reflow to ensure container dimensions are accurate
+        requestAnimationFrame(() => {
+          const newDimensions = calculateBaseDimensions(img.naturalWidth, img.naturalHeight);
+          if (newDimensions) {
+            setDimensions(newDimensions);
+            const newZoom = calculateInitialZoom(newDimensions);
+            initialZoomRef.current = newZoom;
+            setZoom(newZoom);
+            // Reset position when dimensions change
+            setPosition({ x: 0, y: 0 });
+          }
+        });
       };
       img.src = fullImageUrl;
     };
@@ -117,6 +109,12 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
 
     return () => observer.disconnect();
   }, [containerRef.current, fullImageUrl]);
+
+  const getDownloadFilename = () => {
+    const sanitizedName = objectName.replace(/\s+/g, '_').toLowerCase();
+    const sanitizedDate = observationDate.replace(/\s+/g, '_').toLowerCase();
+    return `iss.mkl.dev_${sanitizedName}_${sanitizedDate}${fullImageUrl.match(/\.[^.]+$/)?.[0] || ''}`;
+  };
 
   useEffect(() => {
     const xhr = new XMLHttpRequest();
