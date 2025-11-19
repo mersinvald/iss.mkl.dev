@@ -86,7 +86,7 @@ export class ContentManager {
           };
           
           // Handle single processed image
-          const images = data.images as { processed: Record<string, string> };
+          const images = data.images as { processed: Record<string, string>; raw?: string };
           const processedImage = {
             ...images.processed,
             preview: `${publicPath}/${images.processed.preview}`,
@@ -96,7 +96,7 @@ export class ContentManager {
           return observationSchema.parse({
             ...processedData,
             images: {
-              ...data.images,
+              raw: images.raw,
               processed: processedImage,
             },
             translations: data.translations || { en: {} }
