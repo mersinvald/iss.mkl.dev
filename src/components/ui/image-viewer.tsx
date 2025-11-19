@@ -375,6 +375,33 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
         <div className="absolute bottom-4 right-4 flex gap-2">
           {!isMobile && (
             <>
+              {magnifierEnabled && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      zoomOut();
+                    }}
+                    disabled={magnification === magnificationLevels[0]}
+                    className="p-2 bg-black/50 rounded-full text-white hover:bg-black/70 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <ZoomOut size={20} />
+                  </button>
+                  <div className="flex items-center px-3 bg-black/50 rounded-full text-white text-sm font-medium">
+                    {magnification}×
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      zoomIn();
+                    }}
+                    disabled={magnification === magnificationLevels[magnificationLevels.length - 1]}
+                    className="p-2 bg-black/50 rounded-full text-white hover:bg-black/70 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <ZoomIn size={20} />
+                  </button>
+                </>
+              )}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -386,29 +413,6 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
                 title={magnifierEnabled ? 'Disable magnifier' : 'Enable magnifier'}
               >
                 <Search size={20} />
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  zoomOut();
-                }}
-                disabled={magnification === magnificationLevels[0]}
-                className="p-2 bg-black/50 rounded-full text-white hover:bg-black/70 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <ZoomOut size={20} />
-              </button>
-              <div className="flex items-center px-3 bg-black/50 rounded-full text-white text-sm font-medium">
-                {magnification}×
-              </div>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  zoomIn();
-                }}
-                disabled={magnification === magnificationLevels[magnificationLevels.length - 1]}
-                className="p-2 bg-black/50 rounded-full text-white hover:bg-black/70 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <ZoomIn size={20} />
               </button>
             </>
           )}
