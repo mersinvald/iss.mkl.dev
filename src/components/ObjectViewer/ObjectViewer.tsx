@@ -26,6 +26,7 @@ interface ObjectObservation {
   equipment: EquipmentInfo;
   exposure?: string;
   notes?: string;
+  translatedNotes?: string;
 }
 
 interface ObjectViewerProps {
@@ -111,6 +112,9 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   const displayDescription = (language !== 'en' && translatedDescription) ? translatedDescription : description;
   const translatedName = t(`objectNames.${name}`, name);
   const translatedNamePrepositional = decline(`objectNames.${name}`, 'prepositional', name);
+  
+  // Use translated notes if available and language is not English
+  const displayNotes = (language !== 'en' && currentImage.translatedNotes) ? currentImage.translatedNotes : currentImage.notes;
 
   return (
     <div className="space-y-8">
@@ -225,10 +229,10 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
         </div>
       )}
 
-      {currentImage.notes && (
+      {displayNotes && (
         <div className="bg-gray-800 rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4">{messages.objectViewer.notes}</h2>
-          <Notes content={currentImage.notes} />
+          <Notes content={displayNotes} />
         </div>
       )}
 

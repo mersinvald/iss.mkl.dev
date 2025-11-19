@@ -119,7 +119,10 @@ export const observationSchema = z.object({
     }))
   }),
   notes: z.string().optional(),
-  processingDetails: z.string().optional()
+  processingDetails: z.string().optional(),
+  translations: z.record(z.object({
+    notes: z.string().optional(),
+  })).optional()
 });
 
 export const objectSchema = z.object({
