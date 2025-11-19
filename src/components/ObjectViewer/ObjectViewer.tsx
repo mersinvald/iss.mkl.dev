@@ -52,7 +52,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   const [imageKey, setImageKey] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
-  const { messages, language, t, decline, translate } = useLanguage();
+  const { messages, t, decline, translate, formatDate } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -69,16 +69,6 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
       router.replace(`${basePath}/${currentObservationId}`, { scroll: false });
     }
   }, [currentImageIndex, observations, pathname, router]);
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const locale = language === 'ru' ? 'ru-RU' : language === 'en' ? 'en-GB' : 'en-GB';
-    return date.toLocaleDateString(locale, {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
 
   const currentImage = observations[currentImageIndex];
   

@@ -35,7 +35,7 @@ interface TimelineViewProps {
 const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const { messages, language, t, decline, translate } = useLanguage();
+  const { messages, t, decline, translate, formatDate } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -63,15 +63,6 @@ const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories })
       return searchMatch && categoryMatch;
     });
   }, [observations, searchTerm, selectedCategories]);
-
-  const formatDate = (dateString: string) => {
-    const locale = language === 'ru' ? 'ru-RU' : 'en-GB';
-    return new Date(dateString).toLocaleDateString(locale, {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
 
   if (!mounted || !messages.timeline) {
     return null;

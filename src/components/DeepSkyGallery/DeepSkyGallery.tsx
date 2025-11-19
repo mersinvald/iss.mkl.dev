@@ -33,7 +33,7 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const { messages, language, t, plural, decline } = useLanguage();
+  const { messages, t, plural, decline, formatDate } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -46,15 +46,6 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
         ? prev.filter(c => c !== category)
         : [...prev, category]
     );
-  };
-
-  const formatDate = (dateString: string) => {
-    const locale = language === 'ru' ? 'ru-RU' : 'en-GB';
-    return new Date(dateString).toLocaleDateString(locale, {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
   };
 
   const filteredObjects = useMemo(() => {
@@ -134,7 +125,7 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
                     {obj.observationCount} {plural(obj.observationCount, messages.gallery.observations)}
                   </p>
                   {obj.lastObservation && (
-                    <p>{messages.gallery.lastCaptured}: {formatDate(obj.lastObservation)}</p>
+                    <p>{messages.gallery.lastCaptured}: {formatDate(obj.lastObservation, { year: 'numeric', month: 'short', day: 'numeric' })}</p>
                   )}
                 </div>
               </div>

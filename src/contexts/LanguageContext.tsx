@@ -14,6 +14,7 @@ interface LanguageContextType {
   translate: <T>(translations: Record<string, T>, fallback?: T) => T;
   plural: (count: number, forms: { one: string; few: string; many: string }) => string;
   decline: (key: string, grammaticalCase: 'nominative' | 'genitive' | 'dative' | 'accusative' | 'instrumental' | 'prepositional', fallback?: string) => string;
+  formatDate: (dateString: string, options?: Intl.DateTimeFormatOptions) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -143,8 +144,19 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return typeof value === 'string' ? value : t(key, fallback);
   };
 
+  // Date formatting helper
+  const formatDate = (dateString: string, options?: Intl.DateTimeFormatOptions): string => {
+    const locale = language === 'ru' ? 'ru-RU' : 'en-GB';
+    const defaultOptions: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    };
+    return new Date(dateString).toLocaleDateString(locale, options || defaultOptions);
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, messages, t, translate, plural, decline }}>
+    <LanguageContext.Provider value={{ language, setLanguage, messages, t, translate, plural, decline, formatDate }}>
       {children}
     </LanguageContext.Provider>
   );
