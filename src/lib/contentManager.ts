@@ -2,6 +2,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import yaml from 'js-yaml';
 import { objectSchema, observationSchema, Observation } from './types';
 
 export class ContentManager {
@@ -68,13 +69,13 @@ export class ContentManager {
     const files = await fs.readdir(observationsPath);
     const observations = await Promise.all(
       files
-        .filter(file => file.endsWith('.md'))
+        .filter(file => file.endsWith('.yaml') || file.endsWith('.yml'))
         .map(async file => {
           const fileContent = await fs.readFile(path.join(observationsPath, file), 'utf-8');
-          const { data, content: markdownContent } = matter(fileContent);
+          const data = yaml.load(fileContent) as Record<string, unknown>;
           
-          // Get the date from filename (YYYY-MM-DD.md)
-          const date = path.basename(file, '.md');
+          // Get the date from filename (YYYY-MM-DD.yaml)
+          const date = path.basename(file, path.extname(file));
           
           // Ensure image paths are correct
           const { publicPath } = this.getObservationImagePaths(designation, date);
@@ -86,20 +87,12 @@ export class ContentManager {
           };
           
           // Handle single processed image
+          const images = data.images as { processed: Record<string, string> };
           const processedImage = {
-            ...data.images.processed,
-            preview: `${publicPath}/${data.images.processed.preview}`,
-            publish: `${publicPath}/${data.images.processed.publish}`
+            ...images.processed,
+            preview: `${publicPath}/${images.processed.preview}`,
+            publish: `${publicPath}/${images.processed.publish}`
           };
-
-          // Build translations object with markdown content as English notes
-          const translations = data.translations || {};
-          if (markdownContent && markdownContent.trim()) {
-            translations.en = {
-              ...translations.en,
-              notes: markdownContent
-            };
-          }
   
           return observationSchema.parse({
             ...processedData,
@@ -107,7 +100,7 @@ export class ContentManager {
               ...data.images,
               processed: processedImage,
             },
-            translations
+            translations: data.translations || { en: {} }
           });
         })
     );
@@ -175,8 +168,8 @@ content/
     m31/
       index.md
       observations/
-        2024-03-15.md
-        2024-02-20.md
+        2024-03-15.yaml
+        2024-02-20.yaml
 */
 
 export async function getObjectData(designation: string) {
