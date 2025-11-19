@@ -21,7 +21,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
   onSearchChange,
   searchPlaceholder
 }) => {
-  const { messages } = useLanguage();
+  const { messages, t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
             className="cursor-pointer"
             onClick={() => onCategoryToggle(category)}
           >
-            {category}
+            {t(`categories.${category}`, category)}
           </Badge>
         ))}
       </div>
