@@ -34,7 +34,7 @@ interface TimelineViewProps {
 const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const { messages, language, t } = useLanguage();
+  const { messages, language, t, decline } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories })
                 >
                   <span className="font-mono">{observation.objectDesignation}</span>
                   {" - "}
-                  {t(`objectNames.${observation.objectName}`, observation.objectName)}
+                  {decline(`objectNames.${observation.objectName}`, 'nominative', observation.objectName)}
                 </Link>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {observation.categories.map(category => (

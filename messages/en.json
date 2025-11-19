@@ -79,11 +79,21 @@
     "error": "An error occurred"
   },
   "objectNames": {
-    "Andromeda Galaxy": "Andromeda Galaxy",
-    "Crab Nebula": "Crab Nebula",
-    "Orion Nebula": "Orion Nebula",
-    "Pleiades Star Cluster": "Pleiades Star Cluster",
-    "Earth's Moon": "Earth's Moon"
+    "Andromeda Galaxy": {
+      "nominative": "Andromeda Galaxy"
+    },
+    "Crab Nebula": {
+      "nominative": "Crab Nebula"
+    },
+    "Orion Nebula": {
+      "nominative": "Orion Nebula"
+    },
+    "Pleiades Star Cluster": {
+      "nominative": "Pleiades Star Cluster"
+    },
+    "Earth's Moon": {
+      "nominative": "Earth's Moon"
+    }
   },
   "objectTypes": {
     "Spiral Galaxy": "Spiral Galaxy",
