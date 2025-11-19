@@ -8,6 +8,7 @@ import { Calendar, MapPin, Camera } from 'lucide-react';
 import CategoryFilter from '@/components/ui/category-filter';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Translation } from '@/lib/types';
 
 interface TimelineObservation {
   id: string;
@@ -23,12 +24,7 @@ interface TimelineObservation {
     camera: string;
   };
   previewImageUrl: string;
-  notes?: string;
-  translations?: {
-    [key: string]: {
-      notes?: string;
-    };
-  };
+  translations: Record<string, Translation>;
 }
 
 interface TimelineViewProps {
@@ -39,7 +35,7 @@ interface TimelineViewProps {
 const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const { messages, language, t, decline } = useLanguage();
+  const { messages, language, t, decline, translate } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -77,13 +73,6 @@ const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories })
     });
   };
 
-  const getTranslatedNotes = (observation: TimelineObservation): string | undefined => {
-    if (language === 'ru' && observation.translations?.ru?.notes) {
-      return observation.translations.ru.notes;
-    }
-    return observation.notes;
-  };
-
   if (!mounted || !messages.timeline) {
     return null;
   }
@@ -100,7 +89,13 @@ const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories })
       />
 
       {filteredObservations.map((observation) => {
-        const translatedNotes = getTranslatedNotes(observation);
+        // Use translate helper to get notes in current language
+        const displayNotes = translate(
+          Object.fromEntries(
+            Object.entries(observation.translations).map(([lang, trans]) => [lang, trans.notes || ''])
+          ),
+          ''
+        );
         
         return (
           <Card key={observation.id} className="bg-gray-800 border-gray-700">
@@ -151,9 +146,9 @@ const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories })
                   </div>
                 </div>
 
-                {translatedNotes && (
+                {displayNotes && (
                   <p className="text-gray-400 mt-2 line-clamp-3">
-                    {translatedNotes.split('\n')[0]}
+                    {displayNotes.split('\n')[0]}
                   </p>
                 )}
               </div>
