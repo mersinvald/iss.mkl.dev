@@ -48,7 +48,7 @@ export class ContentManager {
         short: '',
         full: ''
       },
-      translations: data.translations || {}
+      translations: data.translations || { en: {} }
     };
 
     return objectSchema.parse(objectData);
@@ -68,10 +68,10 @@ export class ContentManager {
     const files = await fs.readdir(observationsPath);
     const observations = await Promise.all(
       files
-        .filter(file => file.endsWith('.md'))  // Changed from .yaml to .md
+        .filter(file => file.endsWith('.md'))
         .map(async file => {
-          const content = await fs.readFile(path.join(observationsPath, file), 'utf-8');
-          const { data } = matter(content);  // Using gray-matter for md files
+          const fileContent = await fs.readFile(path.join(observationsPath, file), 'utf-8');
+          const { data, content: markdownContent } = matter(fileContent);
           
           // Get the date from filename (YYYY-MM-DD.md)
           const date = path.basename(file, '.md');
@@ -91,6 +91,15 @@ export class ContentManager {
             preview: `${publicPath}/${data.images.processed.preview}`,
             publish: `${publicPath}/${data.images.processed.publish}`
           };
+
+          // Build translations object with markdown content as English notes
+          const translations = data.translations || {};
+          if (markdownContent && markdownContent.trim()) {
+            translations.en = {
+              ...translations.en,
+              notes: markdownContent
+            };
+          }
   
           return observationSchema.parse({
             ...processedData,
@@ -98,7 +107,7 @@ export class ContentManager {
               ...data.images,
               processed: processedImage,
             },
-            translations: data.translations || {}
+            translations
           });
         })
     );

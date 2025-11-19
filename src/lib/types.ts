@@ -124,9 +124,8 @@ export const observationSchema = z.object({
       bayerpat: z.string().optional()
     }))
   }),
-  notes: z.string().optional(),
   processingDetails: z.string().optional(),
-  translations: z.record(z.string(), translationSchema).optional()
+  translations: z.record(z.string(), translationSchema)
 });
 
 export const objectSchema = z.object({
@@ -153,7 +152,7 @@ export const objectSchema = z.object({
   }),
   observations: z.array(z.string().uuid()), // References to observation IDs
   lastModified: z.string().datetime(),
-  translations: z.record(z.string(), translationSchema).optional()
+  translations: z.record(z.string(), translationSchema)
 });
 
 // Export types for use in components

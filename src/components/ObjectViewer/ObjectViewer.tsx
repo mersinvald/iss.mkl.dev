@@ -26,8 +26,7 @@ interface ObjectObservation {
   location: string;
   equipment: EquipmentInfo;
   exposure?: string;
-  notes?: string;
-  translatedNotes?: Record<string, Translation>;
+  translatedNotes: Record<string, Translation>;
 }
 
 interface ObjectViewerProps {
@@ -36,7 +35,7 @@ interface ObjectViewerProps {
   type: string;
   categories: string[];
   observations: ObjectObservation[];
-  descriptionTranslations?: Record<string, Translation>;
+  descriptionTranslations: Record<string, Translation>;
   initialObservationIndex?: number;
 }
 
@@ -99,7 +98,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
     });
   };
 
-  useEffect(() => {
+  use Effect(() => {
     setImageKey(prev => prev + 1);
   }, [observations]);
 
@@ -108,27 +107,23 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   }
 
   // Use translate helper to get the description in current language
-  const displayDescription = descriptionTranslations 
-    ? translate(
-        Object.fromEntries(
-          Object.entries(descriptionTranslations).map(([lang, trans]) => [lang, trans.description || ''])
-        ),
-        ''
-      )
-    : '';
+  const displayDescription = translate(
+    Object.fromEntries(
+      Object.entries(descriptionTranslations).map(([lang, trans]) => [lang, trans.description || ''])
+    ),
+    ''
+  );
 
   const translatedName = t(`objectNames.${name}`, name);
   const translatedNamePrepositional = decline(`objectNames.${name}`, 'prepositional', name);
   
   // Use translate helper to get the notes in current language
-  const displayNotes = currentImage.translatedNotes
-    ? translate(
-        Object.fromEntries(
-          Object.entries(currentImage.translatedNotes).map(([lang, trans]) => [lang, trans.notes || ''])
-        ),
-        currentImage.notes || ''
-      )
-    : currentImage.notes || '';
+  const displayNotes = translate(
+    Object.fromEntries(
+      Object.entries(currentImage.translatedNotes).map(([lang, trans]) => [lang, trans.notes || ''])
+    ),
+    ''
+  );
 
   return (
     <div className="space-y-8">

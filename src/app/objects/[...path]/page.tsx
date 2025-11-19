@@ -80,7 +80,6 @@ export default async function Page({ params }: { params: Promise<{ path: string[
             location: obs.location.name,
             equipment: obs.equipment,
             exposure: `${obs.exposure.total} seconds`,
-            notes: obs.notes,
             translatedNotes: obs.translations
           }))}
           descriptionTranslations={object.translations}
