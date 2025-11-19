@@ -53,7 +53,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   const [imageKey, setImageKey] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
-  const { messages, language, t } = useLanguage();
+  const { messages, language, t, decline } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -110,6 +110,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   // Use translated description if available and language is not English
   const displayDescription = (language !== 'en' && translatedDescription) ? translatedDescription : description;
   const translatedName = t(`objectNames.${name}`, name);
+  const translatedNamePrepositional = decline(`objectNames.${name}`, 'prepositional', name);
 
   return (
     <div className="space-y-8">
@@ -232,7 +233,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
       )}
 
       <div className="bg-gray-800 rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">{messages.objectViewer.about} {translatedName}</h2>
+        <h2 className="text-xl font-semibold mb-4">{messages.objectViewer.about} {translatedNamePrepositional}</h2>
         <div className="prose prose-invert max-w-none">
           {displayDescription.split('\n\n').map((paragraph, index) => (
             <p key={index} className="mb-4">

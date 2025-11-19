@@ -11,6 +11,7 @@ interface LanguageContextType {
   messages: any;
   t: (key: string, fallback?: string) => string;
   plural: (count: number, forms: { one: string; few: string; many: string }) => string;
+  decline: (key: string, grammaticalCase: 'nominative' | 'genitive' | 'dative' | 'accusative' | 'instrumental' | 'prepositional', fallback?: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -80,8 +81,32 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  // Declension helper for Russian grammatical cases
+  const decline = (key: string, grammaticalCase: 'nominative' | 'genitive' | 'dative' | 'accusative' | 'instrumental' | 'prepositional', fallback?: string): string => {
+    if (language === 'en') {
+      // English doesn't have declensions, just return the base form
+      return t(key, fallback);
+    }
+
+    // For Russian, look up the declined form
+    const declinedKey = `${key}.${grammaticalCase}`;
+    const keys = declinedKey.split('.');
+    let value = messages;
+    
+    for (const k of keys) {
+      if (value && typeof value === 'object' && k in value) {
+        value = value[k];
+      } else {
+        // If declined form not found, fall back to nominative
+        return t(key, fallback);
+      }
+    }
+    
+    return typeof value === 'string' ? value : t(key, fallback);
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, messages, t, plural }}>
+    <LanguageContext.Provider value={{ language, setLanguage, messages, t, plural, decline }}>
       {children}
     </LanguageContext.Provider>
   );

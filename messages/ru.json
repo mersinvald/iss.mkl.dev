@@ -61,11 +61,46 @@
     "error": "Произошла ошибка"
   },
   "objectNames": {
-    "Andromeda Galaxy": "Галактика Андромеды",
-    "Crab Nebula": "Крабовидная туманность",
-    "Orion Nebula": "Туманность Ориона",
-    "Pleiades Star Cluster": "Звёздное скопление Плеяды",
-    "Earth's Moon": "Луна"
+    "Andromeda Galaxy": {
+      "nominative": "Галактика Андромеды",
+      "genitive": "Галактики Андромеды",
+      "dative": "Галактике Андромеды",
+      "accusative": "Галактику Андромеды",
+      "instrumental": "Галактикой Андромеды",
+      "prepositional": "Галактике Андромеды"
+    },
+    "Crab Nebula": {
+      "nominative": "Крабовидная туманность",
+      "genitive": "Крабовидной туманности",
+      "dative": "Крабовидной туманности",
+      "accusative": "Крабовидную туманность",
+      "instrumental": "Крабовидной туманностью",
+      "prepositional": "Крабовидной туманности"
+    },
+    "Orion Nebula": {
+      "nominative": "Туманность Ориона",
+      "genitive": "Туманности Ориона",
+      "dative": "Туманности Ориона",
+      "accusative": "Туманность Ориона",
+      "instrumental": "Туманностью Ориона",
+      "prepositional": "Туманности Ориона"
+    },
+    "Pleiades Star Cluster": {
+      "nominative": "Звёздное скопление Плеяды",
+      "genitive": "Звёздного скопления Плеяды",
+      "dative": "Звёздному скоплению Плеяды",
+      "accusative": "Звёздное скопление Плеяды",
+      "instrumental": "Звёздным скоплением Плеяды",
+      "prepositional": "Звёздном скоплении Плеяды"
+    },
+    "Earth's Moon": {
+      "nominative": "Луна",
+      "genitive": "Луны",
+      "dative": "Луне",
+      "accusative": "Луну",
+      "instrumental": "Луной",
+      "prepositional": "Луне"
+    }
   },
   "objectTypes": {
     "Spiral Galaxy": "Спиральная галактика",
