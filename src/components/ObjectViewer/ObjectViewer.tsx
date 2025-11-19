@@ -98,7 +98,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
     });
   };
 
-  use Effect(() => {
+  useEffect(() => {
     setImageKey(prev => prev + 1);
   }, [observations]);
 
