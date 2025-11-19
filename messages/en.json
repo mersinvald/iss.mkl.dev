@@ -8,11 +8,17 @@
   "gallery": {
     "searchPlaceholder": "Search objects...",
     "observations": "observations",
-    "lastObserved": "Last observed"
+    "lastObserved": "Last observed",
+    "lastCaptured": "Last captured",
+    "allCategories": "All Categories",
+    "noImageAvailable": "No image available",
+    "noObjectsFound": "No objects found matching your criteria"
   },
   "objectViewer": {
     "observations": "Observations",
     "description": "Description",
+    "observationDetails": "Observation Details",
+    "about": "About",
     "location": "Location",
     "equipment": "Equipment",
     "exposure": "Exposure",
@@ -22,6 +28,7 @@
     "camera": "Camera",
     "mount": "Mount",
     "filters": "Filters",
+    "guiding": "Guiding",
     "totalExposure": "Total Exposure",
     "focalLength": "Focal Length",
     "focalRatio": "Focal Ratio",
@@ -29,13 +36,24 @@
     "seeing": "Seeing",
     "transparency": "Transparency",
     "moonPhase": "Moon Phase",
-    "temperature": "Temperature"
+    "temperature": "Temperature",
+    "dateCaptured": "Date Captured",
+    "clickToEnlarge": "Click to enlarge"
   },
   "timeline": {
     "title": "Observation Timeline",
-    "searchPlaceholder": "Search observations..."
+    "searchPlaceholder": "Search observations...",
+    "allCategories": "All Categories",
+    "noObservationsFound": "No observations found matching your criteria"
   },
   "about": {
-    "title": "About"
+    "title": "About",
+    "mySetup": "My Setup",
+    "aboutMe": "About Me"
+  },
+  "common": {
+    "loading": "Loading...",
+    "noResults": "No results found",
+    "error": "An error occurred"
   }
 }

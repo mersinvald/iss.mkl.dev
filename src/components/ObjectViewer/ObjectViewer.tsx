@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import ImageViewer from '@/components/ui/image-viewer';
 import Notes from '@/components/ObjectViewer/Notes';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface EquipmentInfo {
   telescope?: string;
@@ -48,14 +49,18 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   const [imageKey, setImageKey] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
+  const { messages } = useLanguage();
+  const [mounted, setMounted] = useState(false);
 
-  // Effect for URL updates
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     const currentObservationId = observations[currentImageIndex].id;
     const currentPath = pathname?.split('/');
     const lastSegment = currentPath?.[currentPath.length - 1];
 
-    // Only update if the current URL doesn't match the current observation
     if (lastSegment !== currentObservationId) {
       const basePath = currentPath?.slice(0, -1).join('/') || '';
       router.replace(`${basePath}/${currentObservationId}`, { scroll: false });
@@ -85,14 +90,16 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
     });
   };
 
-  // Reset image key when observations change
   useEffect(() => {
     setImageKey(prev => prev + 1);
   }, [observations]);
 
+  if (!mounted || !messages.objectViewer) {
+    return null;
+  }
+
   return (
     <div className="space-y-8">
-      {/* Component JSX remains exactly the same */}
       <div>
         <h1 className="text-3xl font-bold mb-2">
           <span className="font-mono text-blue-400">{designation}</span>
@@ -141,53 +148,51 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
         </div>
       </div>
 
-      {/* Observation Details */}
       <div className="bg-gray-800 rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">Observation Details</h2>
+        <h2 className="text-xl font-semibold mb-4">{messages.objectViewer.observationDetails}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <div className="text-gray-400">Date Captured</div>
+            <div className="text-gray-400">{messages.objectViewer.dateCaptured}</div>
             <div>{formatDate(currentImage.dateCaptured)}</div>
           </div>
           <div>
-            <div className="text-gray-400">Location</div>
+            <div className="text-gray-400">{messages.objectViewer.location}</div>
             <div>{currentImage.location}</div>
           </div>
           {currentImage.exposure && (
             <div>
-              <div className="text-gray-400">Exposure</div>
+              <div className="text-gray-400">{messages.objectViewer.exposure}</div>
               <div>{currentImage.exposure}</div>
             </div>
           )}
         </div>
       </div>
 
-      {/* Equipment */}
       {currentImage.equipment && (
         <div className="bg-gray-800 rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">Equipment</h2>
+          <h2 className="text-xl font-semibold mb-4">{messages.objectViewer.equipment}</h2>
           <div className="grid grid-cols-2 gap-4">
             {currentImage.equipment.telescope && (
               <div>
-                <div className="text-gray-400">Telescope</div>
+                <div className="text-gray-400">{messages.objectViewer.telescope}</div>
                 <div>{currentImage.equipment.telescope}</div>
               </div>
             )}
             {currentImage.equipment.camera && (
               <div>
-                <div className="text-gray-400">Camera</div>
+                <div className="text-gray-400">{messages.objectViewer.camera}</div>
                 <div>{currentImage.equipment.camera}</div>
               </div>
             )}
             {currentImage.equipment.mount && (
               <div>
-                <div className="text-gray-400">Mount</div>
+                <div className="text-gray-400">{messages.objectViewer.mount}</div>
                 <div>{currentImage.equipment.mount}</div>
               </div>
             )}
             {currentImage.equipment.filters && (
               <div>
-                <div className="text-gray-400">Filters</div>
+                <div className="text-gray-400">{messages.objectViewer.filters}</div>
                 <ul className="list-disc pl-4">
                   {currentImage.equipment.filters.map((filter, index) => (
                     <li key={index}>{filter}</li>
@@ -197,7 +202,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
             )}
             {currentImage.equipment.guiding && (
               <div>
-                <div className="text-gray-400">Guiding</div>
+                <div className="text-gray-400">{messages.objectViewer.guiding}</div>
                 <div>{currentImage.equipment.guiding}</div>
               </div>
             )}
@@ -205,18 +210,15 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
         </div>
       )}
 
-      {/* Notes */}
       {currentImage.notes && (
         <div className="bg-gray-800 rounded-lg p-6">
-        <Notes 
-          content={currentImage.notes}
-        />
+          <h2 className="text-xl font-semibold mb-4">{messages.objectViewer.notes}</h2>
+          <Notes content={currentImage.notes} />
         </div>
       )}
 
-      {/* Description */}
       <div className="bg-gray-800 rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">About {name}</h2>
+        <h2 className="text-xl font-semibold mb-4">{messages.objectViewer.about} {name}</h2>
         <div className="prose prose-invert max-w-none">
           {description.split('\n\n').map((paragraph, index) => (
             <p key={index} className="mb-4">

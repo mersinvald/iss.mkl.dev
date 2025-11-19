@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import Image from 'next/image';
 import CategoryFilter from '@/components/ui/category-filter';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 type GalleryObject = {
   designation: {
@@ -17,7 +18,7 @@ type GalleryObject = {
   previewImage: string | null;
   observationCount: number;
   lastObservation: string;
-  lastObservationId: string;  // Add this
+  lastObservationId: string;
   type: string;
 };
 
@@ -40,6 +41,12 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const { messages } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleCategory = (category: string) => {
     setSelectedCategories(prev =>
@@ -51,7 +58,6 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
 
   const filteredObjects = useMemo(() => {
     const filtered = initialObjects.filter(obj => {
-      // Search in designation (primary and alternates) and name
       const searchMatch = (
         obj.designation.primary.toLowerCase().includes(searchTerm.toLowerCase()) ||
         obj.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -60,32 +66,32 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
         )
       );
   
-      // Filter by selected categories
       const categoryMatch = selectedCategories.length === 0 ||
         selectedCategories.some(cat => obj.categories.includes(cat));
   
       return searchMatch && categoryMatch;
     });
   
-    // Sort by last observation date (newest first)
     return filtered.sort((a, b) => 
       new Date(b.lastObservation).getTime() - new Date(a.lastObservation).getTime()
     );
   }, [initialObjects, searchTerm, selectedCategories]);
 
+  if (!mounted || !messages.gallery) {
+    return null;
+  }
+
   return (
     <div className="space-y-6">
-      {/* Search and Filter Section */}
       <CategoryFilter
         categories={initialCategories}
         selectedCategories={selectedCategories}
         onCategoryToggle={toggleCategory}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
-        searchPlaceholder="Search objects..."
+        searchPlaceholder={messages.gallery.searchPlaceholder}
       />
 
-      {/* Gallery Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filteredObjects.map(obj => (
           <Link
@@ -105,7 +111,7 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
                 </div>
               ) : (
                 <div className="aspect-video bg-gray-800 rounded-t-lg flex items-center justify-center">
-                  <span className="text-gray-400">No image available</span>
+                  <span className="text-gray-400">{messages.gallery.noImageAvailable}</span>
                 </div>
               )}
               <div className="p-4">
@@ -123,9 +129,9 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
                   ))}
                 </div>
                 <div className="text-sm text-gray-400">
-                  <p>{obj.observationCount} observation{obj.observationCount !== 1 ? 's' : ''}</p>
+                  <p>{obj.observationCount} {messages.gallery.observations}</p>
                   {obj.lastObservation && (
-                    <p>Last captured: {formatDate(obj.lastObservation)}</p>
+                    <p>{messages.gallery.lastCaptured}: {formatDate(obj.lastObservation)}</p>
                   )}
                 </div>
               </div>
@@ -136,7 +142,7 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
 
       {filteredObjects.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-400">No objects found matching your criteria</p>
+          <p className="text-gray-400">{messages.gallery.noObjectsFound}</p>
         </div>
       )}
     </div>

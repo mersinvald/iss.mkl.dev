@@ -8,11 +8,17 @@
   "gallery": {
     "searchPlaceholder": "Поиск объектов...",
     "observations": "наблюдений",
-    "lastObserved": "Последнее наблюдение"
+    "lastObserved": "Последнее наблюдение",
+    "lastCaptured": "Последняя съёмка",
+    "allCategories": "Все категории",
+    "noImageAvailable": "Изображение недоступно",
+    "noObjectsFound": "Объекты не найдены"
   },
   "objectViewer": {
     "observations": "Наблюдения",
     "description": "Описание",
+    "observationDetails": "Детали наблюдения",
+    "about": "О",
     "location": "Местоположение",
     "equipment": "Оборудование",
     "exposure": "Экспозиция",
@@ -22,6 +28,7 @@
     "camera": "Камера",
     "mount": "Монтировка",
     "filters": "Фильтры",
+    "guiding": "Гидирование",
     "totalExposure": "Общая экспозиция",
     "focalLength": "Фокусное расстояние",
     "focalRatio": "Светосила",
@@ -29,13 +36,24 @@
     "seeing": "Видимость",
     "transparency": "Прозрачность",
     "moonPhase": "Фаза луны",
-    "temperature": "Температура"
+    "temperature": "Температура",
+    "dateCaptured": "Дата съёмки",
+    "clickToEnlarge": "Нажмите для увеличения"
   },
   "timeline": {
     "title": "Хронология наблюдений",
-    "searchPlaceholder": "Поиск наблюдений..."
+    "searchPlaceholder": "Поиск наблюдений...",
+    "allCategories": "Все категории",
+    "noObservationsFound": "Наблюдения не найдены"
   },
   "about": {
-    "title": "О проекте"
+    "title": "О проекте",
+    "mySetup": "Моё оборудование",
+    "aboutMe": "Обо мне"
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "noResults": "Ничего не найдено",
+    "error": "Произошла ошибка"
   }
 }
