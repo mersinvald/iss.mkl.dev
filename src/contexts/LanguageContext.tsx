@@ -22,10 +22,27 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    // Get language from localStorage on mount
-    const savedLanguage = localStorage.getItem('NEXT_LOCALE') as Language | null;
-    const initialLanguage = savedLanguage || 'en';
-    
+    // Function to detect browser language
+    const detectLanguage = (): Language => {
+      // Check if user has already set a preference
+      const savedLanguage = localStorage.getItem('NEXT_LOCALE') as Language | null;
+      if (savedLanguage) {
+        return savedLanguage;
+      }
+
+      // Detect browser language
+      const browserLanguage = navigator.language || (navigator as any).userLanguage;
+      
+      // Check if browser language starts with 'ru' (covers ru, ru-RU, etc.)
+      if (browserLanguage.toLowerCase().startsWith('ru')) {
+        return 'ru';
+      }
+
+      // Default to English
+      return 'en';
+    };
+
+    const initialLanguage = detectLanguage();
     setLanguageState(initialLanguage);
     
     // Load messages for the initial language
