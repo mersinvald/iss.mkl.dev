@@ -4,20 +4,22 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
+  const t = useTranslations('navigation');
 
   const routes = [
-    { href: '/', label: 'Objects' },
-    { href: '/timeline', label: 'Timeline' },
-    { href: '/about', label: 'About' }
+    { href: '/', label: t('objects') },
+    { href: '/timeline', label: t('timeline') },
+    { href: '/about', label: t('about') }
   ];
 
   const isActive = (path: string) => {
     if (path === '/' && pathname === '/') return true;
-    // Check if we're in an object view
     if (path === '/' && pathname?.startsWith('/objects/')) return true;
     if (path !== '/' && pathname?.startsWith(path)) return true;
     return false;
@@ -27,17 +29,15 @@ const Navigation = () => {
     <nav className="bg-gray-900 border-b border-gray-800">
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo and site name with subheader */}
           <div className="flex flex-col justify-center">
             <Link href="/" className="flex items-center">
               <h1 className="text-xl font-bold text-blue-400">I See Stars</h1>
             </Link>
             <p className="text-sm text-gray-500 hidden sm:block">
-              My amateur astrophotography journey documented
+              {t('subtitle')}
             </p>
           </div>
 
-          {/* Desktop navigation */}
           <div className="hidden md:flex md:items-center md:space-x-8">
             {routes.map(route => (
               <Link
@@ -52,9 +52,9 @@ const Navigation = () => {
                 {route.label}
               </Link>
             ))}
+            <LanguageSwitcher />
           </div>
 
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -70,14 +70,12 @@ const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile subheader */}
         <div className="sm:hidden pb-2 -mt-2">
           <p className="text-sm text-gray-500">
-            My amateur astrophotography journey documented
+            {t('subtitle')}
           </p>
         </div>
 
-        {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
@@ -95,6 +93,9 @@ const Navigation = () => {
                   {route.label}
                 </Link>
               ))}
+              <div className="px-3 py-2">
+                <LanguageSwitcher />
+              </div>
             </div>
           </div>
         )}
