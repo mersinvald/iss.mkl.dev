@@ -1,7 +1,6 @@
 // src/lib/content/contentManager.ts
 import { promises as fs } from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
 import yaml from 'js-yaml';
 import { objectSchema, observationSchema, Observation } from './types';
 
@@ -10,7 +9,7 @@ export class ContentManager {
   private readonly publicDir: string;
 
   constructor(config: {
-    contentDir: string;  // Path to content markdown files
+    contentDir: string;  // Path to content files
     publicDir: string;   // Path to public/images directory
   }) {
     this.contentDir = config.contentDir;
@@ -32,15 +31,15 @@ export class ContentManager {
    * Load and validate a deep sky object's metadata
    */
   async loadObject(designation: string) {
-    const objectPath = path.join(this.contentDir, 'objects', designation.toLowerCase(), 'index.md');
+    const objectPath = path.join(this.contentDir, 'objects', designation.toLowerCase(), 'index.yaml');
     const content = await fs.readFile(objectPath, 'utf-8');
-    const { data } = matter(content);
+    const data = yaml.load(content) as Record<string, unknown>;
 
     const objectData = {
       ...data,
       metadata: {
-        ...data.metadata,
-        discoveryDate: data.metadata?.discoveryDate?.toString(),
+        ...data.metadata as Record<string, unknown>,
+        discoveryDate: (data.metadata as Record<string, unknown>)?.discoveryDate?.toString(),
       },
       lastModified: data.lastModified instanceof Date ? 
         data.lastModified.toISOString() : 
@@ -166,7 +165,7 @@ public/
 content/
   objects/
     m31/
-      index.md
+      index.yaml
       observations/
         2024-03-15.yaml
         2024-02-20.yaml
