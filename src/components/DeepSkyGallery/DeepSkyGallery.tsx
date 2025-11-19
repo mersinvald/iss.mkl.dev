@@ -27,21 +27,13 @@ interface DeepSkyGalleryProps {
   initialCategories: string[];
 }
 
-const formatDate = (dateString: string) => {
-  return new Date(dateString).toLocaleDateString('en-GB', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  });
-};
-
 export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
   initialObjects,
   initialCategories
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const { messages } = useLanguage();
+  const { messages, language } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -54,6 +46,15 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
         ? prev.filter(c => c !== category)
         : [...prev, category]
     );
+  };
+
+  const formatDate = (dateString: string) => {
+    const locale = language === 'ru' ? 'ru-RU' : 'en-GB';
+    return new Date(dateString).toLocaleDateString(locale, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
   };
 
   const filteredObjects = useMemo(() => {

@@ -71,7 +71,12 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB');
+    const locale = language === 'ru' ? 'ru-RU' : 'en-GB';
+    return date.toLocaleDateString(locale, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
   };
 
   const currentImage = observations[currentImageIndex];
@@ -197,7 +202,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
             )}
             {currentImage.equipment.filters && (
               <div>
-                <div className="text-gray-400">{messages.objectViewer.filters}< /div>
+                <div className="text-gray-400">{messages.objectViewer.filters}</div>
                 <ul className="list-disc pl-4">
                   {currentImage.equipment.filters.map((filter, index) => (
                     <li key={index}>{filter}</li>
