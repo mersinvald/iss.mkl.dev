@@ -5,6 +5,7 @@ import GoogleAnalytics from '@/components/GoogleAnalytics'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { LanguageProvider } from '@/contexts/LanguageContext'
+import { cookies } from 'next/headers'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -18,13 +19,15 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const messages = await getMessages();
+  const cookieStore = await cookies();
+  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en';
+  const messages = await import(`../../messages/${locale}.json`).then(m => m.default);
 
   return (
-    <html lang="en" suppressHydrationWarning className="dark">
+    <html lang={locale} suppressHydrationWarning className="dark">
       <body suppressHydrationWarning className={`${inter.className} min-h-screen bg-gray-900 text-gray-100`}>
         <GoogleAnalytics GA_MEASUREMENT_ID="G-P1X776M63Y" />
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <LanguageProvider>
             {children}
           </LanguageProvider>
