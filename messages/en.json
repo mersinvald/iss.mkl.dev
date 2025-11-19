@@ -7,7 +7,11 @@
   },
   "gallery": {
     "searchPlaceholder": "Search objects...",
-    "observations": "observations",
+    "observations": {
+      "one": "observation",
+      "few": "observations",
+      "many": "observations"
+    },
     "lastObserved": "Last observed",
     "lastCaptured": "Last captured",
     "allCategories": "All Categories",

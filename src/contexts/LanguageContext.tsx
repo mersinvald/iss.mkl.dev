@@ -10,6 +10,7 @@ interface LanguageContextType {
   setLanguage: (lang: Language) => void;
   messages: any;
   t: (key: string, fallback?: string) => string;
+  plural: (count: number, forms: { one: string; few: string; many: string }) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -60,8 +61,27 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return typeof value === 'string' ? value : fallback || key;
   };
 
+  // Pluralization helper for Russian
+  const plural = (count: number, forms: { one: string; few: string; many: string }): string => {
+    if (language === 'en') {
+      return count === 1 ? forms.one : forms.many;
+    }
+
+    // Russian pluralization rules
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+
+    if (mod10 === 1 && mod100 !== 11) {
+      return forms.one; // 1, 21, 31, 41, 51, 61, 71, 81, 91, 101, 121, etc.
+    } else if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) {
+      return forms.few; // 2-4, 22-24, 32-34, 42-44, 52-54, 62, 102-104, 122-124, etc.
+    } else {
+      return forms.many; // 0, 5-20, 25-30, 35-40, etc.
+    }
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, messages, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, messages, t, plural }}>
       {children}
     </LanguageContext.Provider>
   );

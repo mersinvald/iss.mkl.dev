@@ -33,7 +33,7 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const { messages, language, t } = useLanguage();
+  const { messages, language, t, plural } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -130,7 +130,9 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
                   ))}
                 </div>
                 <div className="text-sm text-gray-400">
-                  <p>{obj.observationCount} {messages.gallery.observations}</p>
+                  <p>
+                    {obj.observationCount} {plural(obj.observationCount, messages.gallery.observations)}
+                  </p>
                   {obj.lastObservation && (
                     <p>{messages.gallery.lastCaptured}: {formatDate(obj.lastObservation)}</p>
                   )}
