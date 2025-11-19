@@ -31,6 +31,7 @@ interface ObjectObservation {
 interface ObjectViewerProps {
   designation: string;
   name: string;
+  type: string;
   categories: string[];
   observations: ObjectObservation[];
   description: string;
@@ -41,6 +42,7 @@ interface ObjectViewerProps {
 export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   designation,
   name,
+  type,
   categories,
   observations,
   description,
@@ -51,7 +53,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   const [imageKey, setImageKey] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
-  const { messages, language } = useLanguage();
+  const { messages, language, t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -107,6 +109,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
 
   // Use translated description if available and language is not English
   const displayDescription = (language !== 'en' && translatedDescription) ? translatedDescription : description;
+  const translatedName = t(`objectNames.${name}`, name);
 
   return (
     <div className="space-y-8">
@@ -114,12 +117,13 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
         <h1 className="text-3xl font-bold mb-2">
           <span className="font-mono text-blue-400">{designation}</span>
           {" - "}
-          {name}
+          {translatedName}
         </h1>
+        <p className="text-gray-400 mb-2">{t(`objectTypes.${type}`, type)}</p>
         <div className="flex flex-wrap gap-2">
           {categories.map(category => (
             <Badge key={category} variant="outline">
-              {category}
+              {t(`categories.${category}`, category)}
             </Badge>
           ))}
         </div>
@@ -130,7 +134,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
           <ImageViewer 
             key={imageKey}
             fullImageUrl={currentImage.publishImageUrl}
-            alt={`${name} - Image ${currentImageIndex + 1}`}
+            alt={`${translatedName} - Image ${currentImageIndex + 1}`}
             objectName={currentImage.objectName}
             observationDate={currentImage.dateCaptured}
             onClick={() => {}}
@@ -228,7 +232,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
       )}
 
       <div className="bg-gray-800 rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">{messages.objectViewer.about} {name}</h2>
+        <h2 className="text-xl font-semibold mb-4">{messages.objectViewer.about} {translatedName}</h2>
         <div className="prose prose-invert max-w-none">
           {displayDescription.split('\n\n').map((paragraph, index) => (
             <p key={index} className="mb-4">

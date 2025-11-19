@@ -55,5 +55,19 @@
     "loading": "Загрузка...",
     "noResults": "Ничего не найдено",
     "error": "Произошла ошибка"
+  },
+  "objectNames": {
+    "Andromeda Galaxy": "Галактика Андромеды",
+    "Crab Nebula": "Крабовидная туманность"
+  },
+  "objectTypes": {
+    "Spiral Galaxy": "Спиральная галактика",
+    "Supernova Remnant": "Остаток сверхновой"
+  },
+  "categories": {
+    "Messier": "Мессье",
+    "Galaxy": "Галактика",
+    "Nebula": "Туманность",
+    "Supernova Remnant": "Остаток сверхновой"
   }
 }

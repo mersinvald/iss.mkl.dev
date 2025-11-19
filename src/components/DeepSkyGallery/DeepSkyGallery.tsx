@@ -33,7 +33,7 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const { messages, language } = useLanguage();
+  const { messages, language, t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -119,13 +119,13 @@ export const DeepSkyGallery: React.FC<DeepSkyGalleryProps> = ({
                 <h3 className="text-lg font-semibold mb-2">
                   <span className="font-mono text-blue-400">{obj.designation.primary}</span>
                   {" - "}
-                  {obj.name}
+                  {t(`objectNames.${obj.name}`, obj.name)}
                 </h3>
-                <p className="text-sm text-gray-400 mb-2">{obj.type}</p>
+                <p className="text-sm text-gray-400 mb-2">{t(`objectTypes.${obj.type}`, obj.type)}</p>
                 <div className="flex flex-wrap gap-2 mb-3">
                   {obj.categories.map(category => (
                     <Badge key={category} variant="outline" className="text-xs">
-                      {category}
+                      {t(`categories.${category}`, category)}
                     </Badge>
                   ))}
                 </div>

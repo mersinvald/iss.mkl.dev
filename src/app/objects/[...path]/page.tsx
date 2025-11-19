@@ -71,6 +71,7 @@ export default async function Page({ params }: { params: Promise<{ path: string[
         <ObjectViewer 
           designation={object.designation.primary}
           name={object.name}
+          type={object.type}
           categories={object.categories}
           initialObservationIndex={initialObservationIndex}
           observations={observations.map(obs => ({

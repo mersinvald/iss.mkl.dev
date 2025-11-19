@@ -55,5 +55,19 @@
     "loading": "Loading...",
     "noResults": "No results found",
     "error": "An error occurred"
+  },
+  "objectNames": {
+    "Andromeda Galaxy": "Andromeda Galaxy",
+    "Crab Nebula": "Crab Nebula"
+  },
+  "objectTypes": {
+    "Spiral Galaxy": "Spiral Galaxy",
+    "Supernova Remnant": "Supernova Remnant"
+  },
+  "categories": {
+    "Messier": "Messier",
+    "Galaxy": "Galaxy",
+    "Nebula": "Nebula",
+    "Supernova Remnant": "Supernova Remnant"
   }
 }

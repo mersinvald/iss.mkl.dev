@@ -9,6 +9,7 @@ interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   messages: any;
+  t: (key: string, fallback?: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -43,8 +44,24 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     router.refresh();
   };
 
+  // Translation helper function
+  const t = (key: string, fallback?: string): string => {
+    const keys = key.split('.');
+    let value = messages;
+    
+    for (const k of keys) {
+      if (value && typeof value === 'object' && k in value) {
+        value = value[k];
+      } else {
+        return fallback || key;
+      }
+    }
+    
+    return typeof value === 'string' ? value : fallback || key;
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, messages }}>
+    <LanguageContext.Provider value={{ language, setLanguage, messages, t }}>
       {children}
     </LanguageContext.Provider>
   );
