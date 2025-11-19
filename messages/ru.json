@@ -1,0 +1,41 @@
+{
+  "navigation": {
+    "objects": "Объекты",
+    "timeline": "Хронология",
+    "about": "О проекте",
+    "subtitle": "Мой путь в любительской астрофотографии"
+  },
+  "gallery": {
+    "searchPlaceholder": "Поиск объектов...",
+    "observations": "наблюдений",
+    "lastObserved": "Последнее наблюдение"
+  },
+  "objectViewer": {
+    "observations": "Наблюдения",
+    "description": "Описание",
+    "location": "Местоположение",
+    "equipment": "Оборудование",
+    "exposure": "Экспозиция",
+    "conditions": "Условия",
+    "notes": "Заметки",
+    "telescope": "Телескоп",
+    "camera": "Камера",
+    "mount": "Монтировка",
+    "filters": "Фильтры",
+    "totalExposure": "Общая экспозиция",
+    "focalLength": "Фокусное расстояние",
+    "focalRatio": "Светосила",
+    "subframes": "Кадры",
+    "seeing": "Видимость",
+    "transparency": "Прозрачность",
+    "moonPhase": "Фаза луны",
+    "temperature": "Температура"
+  },
+  "timeline": {
+    "title": "Хронология наблюдений",
+    "searchPlaceholder": "Поиск наблюдений..."
+  },
+  "about": {
+    "title": "О проекте"
+  }
+}
