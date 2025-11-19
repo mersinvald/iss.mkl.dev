@@ -33,9 +33,7 @@ export class ContentManager {
   async loadObject(designation: string) {
     const objectPath = path.join(this.contentDir, 'objects', designation.toLowerCase(), 'index.md');
     const content = await fs.readFile(objectPath, 'utf-8');
-    const { data, content: description } = matter(content);
-
-    const shortDescription = description.split('\n\n')[0];
+    const { data } = matter(content);
 
     const objectData = {
       ...data,
@@ -47,8 +45,8 @@ export class ContentManager {
         data.lastModified.toISOString() : 
         data.lastModified,
       description: {
-        short: shortDescription,
-        full: description
+        short: '',
+        full: ''
       },
       translations: data.translations || {}
     };

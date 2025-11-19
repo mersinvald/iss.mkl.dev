@@ -59,6 +59,12 @@ export const equipmentSchema = z.object({
   other: z.array(z.string()).optional()
 });
 
+// Translation schema for multilingual content
+export const translationSchema = z.object({
+  shortDescription: z.string().optional(),
+  description: z.string().optional(),
+  notes: z.string().optional()
+});
 
 // Simplified for local file system
 export const observationSchema = z.object({
@@ -120,9 +126,7 @@ export const observationSchema = z.object({
   }),
   notes: z.string().optional(),
   processingDetails: z.string().optional(),
-  translations: z.record(z.object({
-    notes: z.string().optional(),
-  })).optional()
+  translations: z.record(z.string(), translationSchema).optional()
 });
 
 export const objectSchema = z.object({
@@ -149,10 +153,7 @@ export const objectSchema = z.object({
   }),
   observations: z.array(z.string().uuid()), // References to observation IDs
   lastModified: z.string().datetime(),
-  translations: z.record(z.object({
-    shortDescription: z.string().optional(),
-    description: z.string().optional(),
-  })).optional()
+  translations: z.record(z.string(), translationSchema).optional()
 });
 
 // Export types for use in components
@@ -160,5 +161,6 @@ export type StorageConfig = z.infer<typeof storageConfigSchema>;
 export type ImageFile = z.infer<typeof imageFileSchema>;
 export type Coordinates = z.infer<typeof coordinatesSchema>;
 export type Equipment = z.infer<typeof equipmentSchema>;
+export type Translation = z.infer<typeof translationSchema>;
 export type Observation = z.infer<typeof observationSchema>;
 export type DeepSkyObject = z.infer<typeof objectSchema>;
