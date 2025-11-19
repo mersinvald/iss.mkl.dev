@@ -141,7 +141,6 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
             alt={`${translatedName} - Image ${currentImageIndex + 1}`}
             objectName={currentImage.objectName}
             observationDate={currentImage.dateCaptured}
-            onClick={() => {}}
             containerAspectRatio={3/2}
           />
           
