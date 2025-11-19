@@ -62,27 +62,15 @@ const AboutPage = () => {
             </p>
           </Card>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <Card className="p-6">
-              <h2 className="text-2xl font-semibold mb-4 text-blue-400">{messages.about.setup.title}</h2>
-              <p className="text-lg leading-relaxed mb-4">
-                {messages.about.setup.paragraph1}
-              </p>
-              <p className="text-lg leading-relaxed">
-                {messages.about.setup.paragraph2}<br></br>
-                {messages.about.setup.paragraph2b}
-              </p>
-            </Card>
-            <Card className="p-6">
-              <div className="aspect-video relative rounded-lg">
-                <img
-                  src="/images/about/setup.jpg"
-                  alt={messages.about.imageAlt.setup}
-                  className="object-cover"
-                />
-              </div>
-            </Card>
-          </div>
+          <Card className="p-6">
+            <div className="aspect-video relative rounded-lg">
+              <img
+                src="/images/about/setup.jpg"
+                alt={messages.about.imageAlt.setup}
+                className="object-cover"
+              />
+            </div>
+          </Card>
         </div>
       </main>
     </>
