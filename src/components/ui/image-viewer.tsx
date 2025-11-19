@@ -39,6 +39,7 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
   const [magnifierEnabled, setMagnifierEnabled] = useState(false);
   const [magnifierSize, setMagnifierSize] = useState(300);
   const [isMobile, setIsMobile] = useState(false);
+  const [imageOffset, setImageOffset] = useState<Position>({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const fullscreenContainerRef = useRef<HTMLDivElement | null>(null);
@@ -80,6 +81,18 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
     setMagnifierSize(newMagnifierSize);
   };
 
+  const updateImageOffset = () => {
+    if (!imageRef.current || !containerRef.current) return;
+    
+    const imageRect = imageRef.current.getBoundingClientRect();
+    const containerRect = containerRef.current.getBoundingClientRect();
+    
+    setImageOffset({
+      x: imageRect.left - containerRect.left,
+      y: imageRect.top - containerRect.top,
+    });
+  };
+
   useEffect(() => {
     const initializeViewer = () => {
       if (!containerRef.current) return;
@@ -91,6 +104,8 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
           if (newDimensions) {
             setDimensions(newDimensions);
             updateMagnifierSize();
+            // Update image offset after dimensions are set
+            setTimeout(updateImageOffset, 0);
           }
         });
       };
@@ -110,6 +125,12 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
 
     return () => observer.disconnect();
   }, [containerRef.current, fullImageUrl]);
+
+  useEffect(() => {
+    if (isReady) {
+      updateImageOffset();
+    }
+  }, [isReady, dimensions]);
 
   const getDownloadFilename = () => {
     const sanitizedName = objectName.replace(/\s+/g, '_').toLowerCase();
@@ -260,6 +281,7 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
       } else {
         setIsFullscreen(true);
         updateMagnifierSize();
+        setTimeout(updateImageOffset, 0);
       }
     };
 
@@ -279,9 +301,13 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
 
     const { x, y } = magnifierPosition;
     
+    // Adjust coordinates to account for image offset within container
+    const adjustedX = x - imageOffset.x;
+    const adjustedY = y - imageOffset.y;
+    
     // Calculate background position for the magnifier
-    const bgX = -x * magnification + magnifierSize / 2;
-    const bgY = -y * magnification + magnifierSize / 2;
+    const bgX = -adjustedX * magnification + magnifierSize / 2;
+    const bgY = -adjustedY * magnification + magnifierSize / 2;
     
     return {
       position: 'absolute',
@@ -408,7 +434,7 @@ const CustomImageViewer: React.FC<CustomImageViewerProps> = ({
                   toggleMagnifier();
                 }}
                 className={`p-2 rounded-full text-white hover:bg-black/70 ${
-                  magnifierEnabled ? 'bg-blue-600' : 'bg-black/50'
+                  magnifierEnabled ? 'bg-blue-600'  : 'bg-black/50'
                 }`}
                 title={magnifierEnabled ? 'Disable magnifier' : 'Enable magnifier'}
               >
