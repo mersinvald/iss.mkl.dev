@@ -1,25 +1,37 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Navigation from '@/components/Navigation/Navigation';
 import { Card } from '@/components/ui/card';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const AboutPage = () => {
+  const { messages } = useLanguage();
+  const [mounted,  setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || !messages.about) {
+    return null;
+  }
+
   return (
     <>
       <Navigation />
       <main className="min-h-screen bg-slate-900 text-slate-100">
         <div className="mx-auto max-w-4xl px-4 py-8">
-          <h1 className="text-4xl font-bold mb-8 text-blue-400">About Me</h1>
+          <h1 className="text-4xl font-bold mb-8 text-blue-400">{messages.about.title}</h1>
           
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <Card className="p-6">
               <p className="text-lg leading-relaxed">
-                Hey there! <br></br><br></br> I&apos;m Mike, and this is my corner of the internet to share my passion for the night sky.
-                I created this space to both showcase my astrophotography work and record my journey in this hobby, 
-                so that I could go back and see the very first images I&apos;ve taken, and how the quality has (hopefully) improved over time.
+                {messages.about.intro.greeting} <br></br><br></br> {messages.about.intro.paragraph1}
               </p>
               <br></br>
               <p className="text-lg leading-relaxed">  
-                You can reach me at <a href="mailto:iss@mkl.dev" className="text-red-400">iss@mkl.dev</a>.
+                {messages.about.intro.paragraph2} <a href="mailto:iss@mkl.dev" className="text-red-400">iss@mkl.dev</a>.
               </p>
             </Card>
             
@@ -27,7 +39,7 @@ const AboutPage = () => {
               <div className="aspect-video relative rounded-lg">
                 <img
                   src="/images/about/me.jpg"
-                  alt="Astrophotography setup in the desert"
+                  alt={messages.about.imageAlt.me}
                   className="object-cover"
                 />
               </div>
@@ -35,38 +47,37 @@ const AboutPage = () => {
           </div>
 
           <Card className="p-6 mb-8">
-            <h2 className="text-2xl font-semibold mb-4 text-blue-400">The Journey</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-blue-400">{messages.about.journey.title}</h2>
             <p className="text-lg leading-relaxed mb-4">
-              I&apos;ve always been fascinated with the night sky and the photos other people take, and finally have decided to pull the plug and give it a go myself in late Fall of 2024.
-              Mostly with the stuff I already had: a Sony camera and a long telephoto zoom, aside from the entry-level Skywatcher GoTo mount. 
+              {messages.about.journey.paragraph1}
             </p>
             <p className="text-lg leading-relaxed">
-              Currently based in the UAE, I&apos;m fortunate to have access to dark skies and clear nights most of the year, even if I have to drive pretty far out of the city.
+              {messages.about.journey.paragraph2}
             </p>
             <p className="text-lg leading-relaxed mb-4">
-            My primary locations are the test site at the <a href="https://maps.app.goo.gl/NwKJUqarzVKWvA8j9" className="text-red-400">Salt Lake near Abu Dhabi</a>, a light poluted place, but close to home, and the main shooting site at <a href="https://maps.app.goo.gl/7CnnrZ8WPC3XA5AW8" className="text-red-400">Abu Qrayn Desert</a>, the darkest place in the country.
+              {messages.about.journey.paragraph3} <a href="https://maps.app.goo.gl/NwKJUqarzVKWvA8j9" className="text-red-400">{messages.about.journey.saltLake}</a>{messages.about.journey.paragraph3b} <a href="https://maps.app.goo.gl/7CnnrZ8WPC3XA5AW8" className="text-red-400">{messages.about.journey.abuQrayn}</a>{messages.about.journey.paragraph3c}
             </p>
             <p className="text-lg leading-relaxed">
-            I&apos;m always looking for new places to shoot, so if you know of any good spots in the UAE, please let me know!
+              {messages.about.journey.paragraph4}
             </p>
           </Card>
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <Card className="p-6">
-              <h2 className="text-2xl font-semibold mb-4 text-blue-400">The Setup</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-blue-400">{messages.about.setup.title}</h2>
               <p className="text-lg leading-relaxed mb-4">
-                For now, it&apos;s a Sony A7IV full-frame camera with a GM 100-400 f4.5-5.6 lens, the SkyWatcher GTi tracking mount, on top of a Peak Design tripod.
+                {messages.about.setup.paragraph1}
               </p>
               <p className="text-lg leading-relaxed">
-                The brains of operation the holy Ktulhu of wires and a Windows 11 mini-PC running N.I.N.A.<br></br>
-                I also got a n Anker battery, that, with some power target tweaking of the PC, can support up to 7 hours of shooting. If switched to 12v output via car plug, potentially I can extend it even more, but I&apos;m yet to give that a try.
+                {messages.about.setup.paragraph2}<br></br>
+                {messages.about.setup.paragraph2b}
               </p>
             </Card>
             <Card className="p-6">
               <div className="aspect-video relative rounded-lg">
                 <img
                   src="/images/about/setup.jpg"
-                  alt="Astrophotography setup in the desert"
+                  alt={messages.about.imageAlt.setup}
                   className="object-cover"
                 />
               </div>
