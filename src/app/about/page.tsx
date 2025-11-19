@@ -61,16 +61,6 @@ const AboutPage = () => {
               {messages.about.journey.paragraph4}
             </p>
           </Card>
-
-          <Card className="p-6">
-            <div className="aspect-video relative rounded-lg">
-              <img
-                src="/images/about/setup.jpg"
-                alt={messages.about.imageAlt.setup}
-                className="object-cover"
-              />
-            </div>
-          </Card>
         </div>
       </main>
     </>
