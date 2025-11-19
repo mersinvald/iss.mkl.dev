@@ -2,6 +2,7 @@
 import { ContentManager } from '@/lib/contentManager';
 import { ObjectViewer } from '@/components/ObjectViewer/ObjectViewer';
 import { ArrowLeft } from 'lucide-react';
+import Navigation from '@/components/Navigation/Navigation';
 import Link from 'next/link';
 
 // Update to handle observation ID
@@ -55,6 +56,8 @@ export default async function Page({ params }: { params: Promise<{ path: string[
   }
 
   return (
+    <>
+    <Navigation />
     <main className="min-h-screen bg-gray-900 py-8">
       <div className="max-w-7xl mx-auto px-4">
         <Link 
@@ -86,5 +89,6 @@ export default async function Page({ params }: { params: Promise<{ path: string[
         />
       </div>
     </main>
+    </>
   );
 }
