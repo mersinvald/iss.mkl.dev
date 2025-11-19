@@ -54,6 +54,9 @@ export default async function Page({ params }: { params: Promise<{ path: string[
     }
   }
 
+  // Extract Russian translation if available
+  const translatedDescription = object.translations?.ru?.description;
+
   return (
     <main className="min-h-screen bg-gray-900 py-8">
       <div className="max-w-7xl mx-auto px-4">
@@ -82,6 +85,7 @@ export default async function Page({ params }: { params: Promise<{ path: string[
             notes: obs.notes
           }))}
           description={object.description.full}
+          translatedDescription={translatedDescription}
         />
       </div>
     </main>

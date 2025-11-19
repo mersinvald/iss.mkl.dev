@@ -145,7 +145,11 @@ export const objectSchema = z.object({
     discoveryDate: z.string().optional()
   }),
   observations: z.array(z.string().uuid()), // References to observation IDs
-  lastModified: z.string().datetime()
+  lastModified: z.string().datetime(),
+  translations: z.record(z.object({
+    shortDescription: z.string().optional(),
+    description: z.string().optional(),
+  })).optional()
 });
 
 // Export types for use in components
