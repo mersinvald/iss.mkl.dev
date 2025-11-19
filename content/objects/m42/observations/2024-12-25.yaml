@@ -1,4 +1,3 @@
----
 id: 65b2276c-18f9-4cae-862e-0dc27239293e
 date: 2024-12-25T23:30:00Z
 location:
@@ -72,42 +71,42 @@ translations:
       | ![Пит-стоп для накачки шин](/images/m42/2024-12-25/DSC03542.jpg) 
       |
       :::
-notes: |
-  My second attempt at capturing Orion Nebula, now with more knowledge, a star tracker, and a better editing workflow using PixInsight.
+  en:
+    notes: |
+      My second attempt at capturing Orion Nebula, now with more knowledge, a star tracker, and a better editing workflow using PixInsight.
 
-  ::: image-block right 25% 2/3
-  ![Starlight was so nice car later decided to stay](/images/m42/2024-12-25/DSC03494.jpg)
-  
-  We went to the dark site on a weekday for the first time with the SkyWatcher GTi. 150 kilometers from Abu Dhabi, there is a great dark spot with Bortle 3/4 skies, where Milky Way is visible with the naked eye.
-  <br />
-  Around 90 minute drive and we arrived to our destination, unpacked the equipment and started to set things up at around 8 PM.
-  :::
-  
-  ::: image-block left 25% 2/3
-  ![Telescope set to Orion Nebula](/images/m42/2024-12-25/IMG_6376.JPG)
-  
-  Together with my buddy Anton, we aimed the scope at the Orion Nebula. <br />
-  The second attempt at polar alignment went smoothly, and the conditions were perfect! It was incredibly exciting to see the nebula immediately visible in the exposures, even before stacking. <br />
-  After the initial setup, everything went smoothly — even the meridian flip worked correctly this time (likely thanks to properly aligning the scope). <br /> 
-  Dew formed, but the lens heater worked well, keeping the front element dry — unlike the rest of the equipment. Everything else was soaked, including the open ports on the SkyWatcher, which is probably not ideal. Next time, I'll wrap the tripod in a space blanket. 
-  :::
+      ::: image-block right 25% 2/3
+      ![Starlight was so nice car later decided to stay](/images/m42/2024-12-25/DSC03494.jpg)
+      
+      We went to the dark site on a weekday for the first time with the SkyWatcher GTi. 150 kilometers from Abu Dhabi, there is a great dark spot with Bortle 3/4 skies, where Milky Way is visible with the naked eye.
+      <br />
+      Around 90 minute drive and we arrived to our destination, unpacked the equipment and started to set things up at around 8 PM.
+      :::
+      
+      ::: image-block left 25% 2/3
+      ![Telescope set to Orion Nebula](/images/m42/2024-12-25/IMG_6376.JPG)
+      
+      Together with my buddy Anton, we aimed the scope at the Orion Nebula. <br />
+      The second attempt at polar alignment went smoothly, and the conditions were perfect! It was incredibly exciting to see the nebula immediately visible in the exposures, even before stacking. <br />
+      After the initial setup, everything went smoothly — even the meridian flip worked correctly this time (likely thanks to properly aligning the scope). <br /> 
+      Dew formed, but the lens heater worked well, keeping the front element dry — unlike the rest of the equipment. Everything else was soaked, including the open ports on the SkyWatcher, which is probably not ideal. Next time, I'll wrap the tripod in a space blanket. 
+      :::
 
-  ::: image-block right 25% 2/3
-  ![Sand storm](/images/m42/2024-12-25/IMG_6375.JPG)
-  At around 3 AM, after finishing the calibration frames, we stepped out of the car to start packing up — only to discover a sandstorm had crept in. Visibility dropped to just three meters. We scrambled to pack up the half-disassembled equipment and then started the car to drive off. <br />
-  Here's where the real adventure began: we were stuck. Driving downhill from the main road into the desert had been easy, but getting back up proved far more challenging. The front wheels dug into the sand, and we risked getting stuck for good. <br />
-  Reversing out of the self-made sand pits worked, but no forward movement was possible. Putting our heads together, we decided to deflate the tires for better grip. This helped but wasn't enough. The AWD hybrid RAV4 is apparently not much of an off-road vehicle. While it sometimes operates as AWD, it's primarily a front-wheel drive: far from ideal for sand. <br />
-  We weren't about to give up. Rescue would take hours to arrive, if it even could, given the conditions. After more brainstorming, we had an idea: if the car could move in reverse, why not try driving out that way? <br />
-  Sure enough, after several attempts — and with plenty acceleration distance — we managed to reverse up the sand slope. Anton guided me using a flashlight as a "homing beacon" — the only visible thing in the rearview mirror amidst the storm. <br />
-  Helluva Fun! <br />
-  :::
+      ::: image-block right 25% 2/3
+      ![Sand storm](/images/m42/2024-12-25/IMG_6375.JPG)
+      At around 3 AM, after finishing the calibration frames, we stepped out of the car to start packing up — only to discover a sandstorm had crept in. Visibility dropped to just three meters. We scrambled to pack up the half-disassembled equipment and then started the car to drive off. <br />
+      Here's where the real adventure began: we were stuck. Driving downhill from the main road into the desert had been easy, but getting back up proved far more challenging. The front wheels dug into the sand, and we risked getting stuck for good. <br />
+      Reversing out of the self-made sand pits worked, but no forward movement was possible. Putting our heads together, we decided to deflate the tires for better grip. This helped but wasn't enough. The AWD hybrid RAV4 is apparently not much of an off-road vehicle. While it sometimes operates as AWD, it's primarily a front-wheel drive: far from ideal for sand. <br />
+      We weren't about to give up. Rescue would take hours to arrive, if it even could, given the conditions. After more brainstorming, we had an idea: if the car could move in reverse, why not try driving out that way? <br />
+      Sure enough, after several attempts — and with plenty acceleration distance — we managed to reverse up the sand slope. Anton guided me using a flashlight as a "homing beacon" — the only visible thing in the rearview mirror amidst the storm. <br />
+      Helluva Fun! <br />
+      :::
 
-  The rest of the journey was less dramatic. Visibility didn't improve much, but even turtle-speed driving is enjoyable with good company. Besides, the empty roads in these conditions had an eerily beautiful, almost mystical allure: a unique experience in its own right. <br />
+      The rest of the journey was less dramatic. Visibility didn't improve much, but even turtle-speed driving is enjoyable with good company. Besides, the empty roads in these conditions had an eerily beautiful, almost mystical allure: a unique experience in its own right. <br />
 
-  ::: photo-table
-  | ![Silent Hill](/images/m42/2024-12-25/DSC03506.jpg)  
-  | ![Pyramide-head is here!](/images/m42/2024-12-25/DSC03508.jpg) 
-  | ![Tire inflation pit-stop](/images/m42/2024-12-25/DSC03542.jpg) 
-  |
-  :::
----
+      ::: photo-table
+      | ![Silent Hill](/images/m42/2024-12-25/DSC03506.jpg)  
+      | ![Pyramide-head is here!](/images/m42/2024-12-25/DSC03508.jpg) 
+      | ![Tire inflation pit-stop](/images/m42/2024-12-25/DSC03542.jpg) 
+      |
+      :::

@@ -1,4 +1,3 @@
----
 id: b42be726-83a7-4fb5-8a35-524dda471533
 date: 2024-12-29T03:30:00Z
 location:
@@ -35,8 +34,8 @@ translations:
       Немного дополнительного времени после того, как M31 опустилась ниже 30 градусов этой ночью.
 
       С гидированием, SNR был намного лучше с 90-секундными экспозициями, что дало гораздо более красивую картинку.
-notes: |
-  A bit of extra time after M31 went below 30 degrees this night.
+  en:
+    notes: |
+      A bit of extra time after M31 went below 30 degrees this night.
 
-  With guiding, SNR was way better with 90s exposures, yielding a much nicer picture.
----
+      With guiding, SNR was way better with 90s exposures, yielding a much nicer picture.

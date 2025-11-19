@@ -11,8 +11,10 @@ interface LanguageContextType {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any                                        
   messages: any;
   t: (key: string, fallback?: string) => string;
+  translate: <T>(translations: Record<string, T>, fallback?: T) => T;
   plural: (count: number, forms: { one: string; few: string; many: string }) => string;
   decline: (key: string, grammaticalCase: 'nominative' | 'genitive' | 'dative' | 'accusative' | 'instrumental' | 'prepositional', fallback?: string) => string;
+  formatDate: (dateString: string, options?: Intl.DateTimeFormatOptions) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -82,6 +84,23 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return typeof value === 'string' ? value : fallback || key;
   };
 
+  // Helper to translate content based on current language
+  const translate = <T,>(translations: Record<string, T>, fallback?: T): T => {
+    if (translations[language]) {
+      return translations[language];
+    }
+    // Fallback to English if current language not available
+    if (language !== 'en' && translations['en']) {
+      return translations['en'];
+    }
+    // Return fallback or first available translation
+    if (fallback !== undefined) {
+      return fallback;
+    }
+    const firstKey = Object.keys(translations)[0];
+    return translations[firstKey];
+  };
+
   // Pluralization helper for Russian
   const plural = (count: number, forms: { one: string; few: string; many: string }): string => {
     if (language === 'en') {
@@ -125,8 +144,19 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return typeof value === 'string' ? value : t(key, fallback);
   };
 
+  // Date formatting helper
+  const formatDate = (dateString: string, options?: Intl.DateTimeFormatOptions): string => {
+    const locale = language === 'ru' ? 'ru-RU' : 'en-GB';
+    const defaultOptions: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    };
+    return new Date(dateString).toLocaleDateString(locale, options || defaultOptions);
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, messages, t, plural, decline }}>
+    <LanguageContext.Provider value={{ language, setLanguage, messages, t, translate, plural, decline, formatDate }}>
       {children}
     </LanguageContext.Provider>
   );

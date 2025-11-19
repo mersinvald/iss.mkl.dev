@@ -1,4 +1,3 @@
----
 id: 014a8736-2701-4a0e-b7dd-3e809139e697
 date: 2025-11-16T18:00:00Z
 location:
@@ -47,18 +46,18 @@ translations:
       Первая многоночная съёмка с 2024 года :)
 
       Я глупо забыл поменять редуктор 0.8x на флэттенер 1x перед началом, и понял это только после ~200 кадров. Ну что ж, повод переснять, особенно учитывая, что я только что получил новый набор фильтров Askar E1/E2 для съёмки в HSO!
-notes: |
-  Crab HOO narrowband through a 3nm filter, Bortle 8
-  
-  Processing workflow in PixInsight 1.9.3:
-  - SpectrophotometricColorCalibration (SCC) for accurate color rendition
-  - NoiseXTerminator for noise reduction
-  - BlurXTerminator for deconvolution and sharpening
-  - StarXTerminator for star separation
-  - Statistical stretch for initial dynamic range adjustment
-  - Final curves adjustments for contrast and color balance
+  en:
+    notes: |
+      Crab HOO narrowband through a 3nm filter, Bortle 8
+      
+      Processing workflow in PixInsight 1.9.3:
+      - SpectrophotometricColorCalibration (SCC) for accurate color rendition
+      - NoiseXTerminator for noise reduction
+      - BlurXTerminator for deconvolution and sharpening
+      - StarXTerminator for star separation
+      - Statistical stretch for initial dynamic range adjustment
+      - Final curves adjustments for contrast and color balance
 
-  First multi-night imaging session since 2024 :)
+      First multi-night imaging session since 2024 :)
 
-  I have stupidly forgot to change the 0.8x reducer to 1x flattener before I started, and only realized that ~200 images in. Oh well, an opportunity to re-capture I guess, especially since I've just got a new set of Askar E1/E2 filters to image in HSO!
----
+      I have stupidly forgot to change the 0.8x reducer to 1x flattener before I started, and only realized that ~200 images in. Oh well, an opportunity to re-capture I guess, especially since I've just got a new set of Askar E1/E2 filters to image in HSO!

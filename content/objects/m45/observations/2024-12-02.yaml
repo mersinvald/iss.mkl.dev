@@ -1,4 +1,3 @@
----
 id: 0c064b94-8256-48a0-afdc-c2451197f845
 date: 2024-12-02T03:30:00Z
 location:
@@ -38,11 +37,11 @@ translations:
       В ту же ночь, что и съёмка Андромеды, также взял только тёмные кадры, без биасов и флэтов. <br />
       Немного лучшая обработка, чем у Андромеды, но всё ещё очень шумно: вероятно, попробую переобработать с PixInsight и обновлю описание, если перезагружу. <br />
       Но! Можно даже увидеть слабую туманность скопления, ура!
-notes: |
-  Excellent seeing conditions with no moon. First attempt as DSO photography.
-  
-  Used very fast exposure time: 1.5s with ~200 frames, ~150 useable. <br />
-  Same night as Andromeda shoot, also took only darks, no bias or flats. <br />
-  A bit nicer processing than Andromeda, but still very noisy: will likely try to reprocess with PixInsight and update the description if I reuppload. <br />
-  But! You can even see some faint nebulosity of the cluster, yay!
----
+  en:
+    notes: |
+      Excellent seeing conditions with no moon. First attempt as DSO photography.
+      
+      Used very fast exposure time: 1.5s with ~200 frames, ~150 useable. <br />
+      Same night as Andromeda shoot, also took only darks, no bias or flats. <br />
+      A bit nicer processing than Andromeda, but still very noisy: will likely try to reprocess with PixInsight and update the description if I reuppload. <br />
+      But! You can even see some faint nebulosity of the cluster, yay!

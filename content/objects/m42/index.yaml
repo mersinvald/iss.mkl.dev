@@ -1,4 +1,3 @@
----
 id: ef2bc670-ef9e-4e13-ab41-b600218c0662
 designation:
   primary: M42
@@ -35,11 +34,13 @@ translations:
       Эта звёздная колыбель представляет собой комплекс газа и пыли, простирающийся примерно на 24 световых года, где активно рождаются новые звёзды. Туманность содержит сотни молодых звёзд, включая знаменитое скопление Трапеция в её центре — группу горячих молодых звёзд, которые освещают окружающий газ и создают характерное свечение. Яркие цвета, запечатлённые на астрофотографиях, возникают в результате ионизации водородного газа интенсивным ультрафиолетовым излучением этих массивных молодых звёзд.
 
       Расположенная относительно близко к Земле, на расстоянии около 1344 световых лет, туманность Ориона предоставляет астрономам беспрецедентный вид на процессы звездообразования. Она является частью более крупного Молекулярного облака Ориона, которое простирается на большую часть созвездия Ориона. Туманность была объектом восхищения астрономов с момента её открытия Николя-Клодом Фабри де Пейреском в 1611 году и продолжает оставаться важнейшим местом для понимания рождения и ранней эволюции звёзд.
----
-The Orion Nebula is a vibrant star-forming region visible to the naked eye, representing one of the most studied and photographed celestial objects in the night sky.
+  en:
+    shortDescription: The Orion Nebula is a vibrant star-forming region 
+    description: |
+      The Orion Nebula is a vibrant star-forming region visible to the naked eye, representing one of the most studied and photographed celestial objects in the night sky.
 
-The Orion Nebula, also known as Messier 42 (M42), is a massive star-forming region located in the constellation Orion. It is one of the brightest and most studied nebulae in the night sky, visible to the naked eye as a fuzzy patch in Orion's sword.
+      The Orion Nebula, also known as Messier 42 (M42), is a massive star-forming region located in the constellation Orion. It is one of the brightest and most studied nebulae in the night sky, visible to the naked eye as a fuzzy patch in Orion's sword.
 
-This stellar nursery is a complex of gas and dust spanning approximately 24 light-years, where new stars are actively being born. The nebula contains hundreds of young stars, including the famous Trapezium Cluster at its heart, a group of hot, young stars that illuminate the surrounding gas and create its distinctive glow. The vibrant colors captured in astrophotographs result from ionized hydrogen gas excited by the intense ultraviolet radiation from these young, massive stars.
+      This stellar nursery is a complex of gas and dust spanning approximately 24 light-years, where new stars are actively being born. The nebula contains hundreds of young stars, including the famous Trapezium Cluster at its heart, a group of hot, young stars that illuminate the surrounding gas and create its distinctive glow. The vibrant colors captured in astrophotographs result from ionized hydrogen gas excited by the intense ultraviolet radiation from these young, massive stars.
 
-Located relatively close to Earth at about 1,344 light-years away, the Orion Nebula provides astronomers with an unprecedented view of stellar formation processes. It is part of the larger Orion Molecular Cloud Complex, which extends across much of the Orion constellation. The nebula has been a subject of fascination for astronomers since its discovery by Nicolas Claude Fabri de Peiresc in 1611, and continues to be a crucial site for understanding the birth and early evolution of stars.
+      Located relatively close to Earth at about 1,344 light-years away, the Orion Nebula provides astronomers with an unprecedented view of stellar formation processes. It is part of the larger Orion Molecular Cloud Complex, which extends across much of the Orion constellation. The nebula has been a subject of fascination for astronomers since its discovery by Nicolas Claude Fabri de Peiresc in 1611, and continues to be a crucial site for understanding the birth and early evolution of stars.

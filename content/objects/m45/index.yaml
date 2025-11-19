@@ -1,4 +1,3 @@
----
 id: 1de93aea-b63a-4b0c-ab72-8bde3583fc89
 designation:
   primary: M45
@@ -35,11 +34,13 @@ translations:
       Скопление состоит из сотен звёзд и является относительно молодым — его возраст оценивается примерно в 100 миллионов лет. Самые яркие звёзды — массивные горячие голубые звёзды, которые освещают окружающую пыль, создавая характерную голубую дымку, видимую на длительных экспозициях астрофотографий. Несмотря на название «Семь Сестёр», скопление на самом деле содержит гораздо больше звёзд, чем семь видимых невооружённым глазом.
 
       В мифологии Плеяды часто ассоциируются с различными культурными повествованиями, включая греческую мифологию, где они, как говорили, были семью дочерьми Атласа, превращёнными в звёзды. Скопление наблюдалось и почиталось культурами по всему миру на протяжении тысяч лет, служа как научным чудом, так и источником культурного значения.
----
-The Pleiades is a stunning open star cluster visible to the naked eye, known for its distinctive blue-white stars and surrounding reflection nebulosity.
+  en:
+    shortDescription: The Pleiades is a stunning open star cluster visible to the naked eye
+    description: |
+      The Pleiades is a stunning open star cluster visible to the naked eye, known for its distinctive blue-white stars and surrounding reflection nebulosity.
 
-The Pleiades, also known as the Seven Sisters or Messier 45 (M45), is one of the most recognizable star clusters in the night sky. Located in the constellation Taurus, this young open cluster contains hot, blue stars that are easily visible to the naked eye and surrounded by beautiful blue reflection nebulae.
+      The Pleiades, also known as the Seven Sisters or Messier 45 (M45), is one of the most recognizable star clusters in the night sky. Located in the constellation Taurus, this young open cluster contains hot, blue stars that are easily visible to the naked eye and surrounded by beautiful blue reflection nebulae.
 
-Composed of hundreds of stars, the cluster is relatively young, estimated to be around 100 million years old. The brightest stars are massive, hot, blue stars that illuminate the surrounding dust, creating the characteristic blue haze visible in long-exposure astrophotographs. Despite being called the Seven Sisters, the cluster actually contains many more stars than the seven visible to the naked eye.
+      Composed of hundreds of stars, the cluster is relatively young, estimated to be around 100 million years old. The brightest stars are massive, hot, blue stars that illuminate the surrounding dust, creating the characteristic blue haze visible in long-exposure astrophotographs. Despite being called the Seven Sisters, the cluster actually contains many more stars than the seven visible to the naked eye.
 
-In mythology, the Pleiades are often associated with various cultural narratives, including Greek mythology, where they were said to be the seven daughters of Atlas transformed into stars. The cluster has been observed and celebrated by cultures around the world for thousands of years, serving as both a scientific marvel and a source of cultural significance.
+      In mythology, the Pleiades are often associated with various cultural narratives, including Greek mythology, where they were said to be the seven daughters of Atlas transformed into stars. The cluster has been observed and celebrated by cultures around the world for thousands of years, serving as both a scientific marvel and a source of cultural significance.

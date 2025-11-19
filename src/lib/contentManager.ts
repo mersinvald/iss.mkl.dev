@@ -1,7 +1,7 @@
 // src/lib/content/contentManager.ts
 import { promises as fs } from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
+import yaml from 'js-yaml';
 import { objectSchema, observationSchema, Observation } from './types';
 
 export class ContentManager {
@@ -9,7 +9,7 @@ export class ContentManager {
   private readonly publicDir: string;
 
   constructor(config: {
-    contentDir: string;  // Path to content markdown files
+    contentDir: string;  // Path to content files
     publicDir: string;   // Path to public/images directory
   }) {
     this.contentDir = config.contentDir;
@@ -31,26 +31,24 @@ export class ContentManager {
    * Load and validate a deep sky object's metadata
    */
   async loadObject(designation: string) {
-    const objectPath = path.join(this.contentDir, 'objects', designation.toLowerCase(), 'index.md');
+    const objectPath = path.join(this.contentDir, 'objects', designation.toLowerCase(), 'index.yaml');
     const content = await fs.readFile(objectPath, 'utf-8');
-    const { data, content: description } = matter(content);
-
-    const shortDescription = description.split('\n\n')[0];
+    const data = yaml.load(content) as Record<string, unknown>;
 
     const objectData = {
       ...data,
       metadata: {
-        ...data.metadata,
-        discoveryDate: data.metadata?.discoveryDate?.toString(),
+        ...data.metadata as Record<string, unknown>,
+        discoveryDate: (data.metadata as Record<string, unknown>)?.discoveryDate?.toString(),
       },
       lastModified: data.lastModified instanceof Date ? 
         data.lastModified.toISOString() : 
         data.lastModified,
       description: {
-        short: shortDescription,
-        full: description
+        short: '',
+        full: ''
       },
-      translations: data.translations || {}
+      translations: data.translations || { en: {} }
     };
 
     return objectSchema.parse(objectData);
@@ -70,13 +68,13 @@ export class ContentManager {
     const files = await fs.readdir(observationsPath);
     const observations = await Promise.all(
       files
-        .filter(file => file.endsWith('.md'))  // Changed from .yaml to .md
+        .filter(file => file.endsWith('.yaml') || file.endsWith('.yml'))
         .map(async file => {
-          const content = await fs.readFile(path.join(observationsPath, file), 'utf-8');
-          const { data } = matter(content);  // Using gray-matter for md files
+          const fileContent = await fs.readFile(path.join(observationsPath, file), 'utf-8');
+          const data = yaml.load(fileContent) as Record<string, unknown>;
           
-          // Get the date from filename (YYYY-MM-DD.md)
-          const date = path.basename(file, '.md');
+          // Get the date from filename (YYYY-MM-DD.yaml)
+          const date = path.basename(file, path.extname(file));
           
           // Ensure image paths are correct
           const { publicPath } = this.getObservationImagePaths(designation, date);
@@ -88,10 +86,11 @@ export class ContentManager {
           };
           
           // Handle single processed image
+          const images = data.images as { processed: Record<string, string> };
           const processedImage = {
-            ...data.images.processed,
-            preview: `${publicPath}/${data.images.processed.preview}`,
-            publish: `${publicPath}/${data.images.processed.publish}`
+            ...images.processed,
+            preview: `${publicPath}/${images.processed.preview}`,
+            publish: `${publicPath}/${images.processed.publish}`
           };
   
           return observationSchema.parse({
@@ -100,7 +99,7 @@ export class ContentManager {
               ...data.images,
               processed: processedImage,
             },
-            translations: data.translations || {}
+            translations: data.translations || { en: {} }
           });
         })
     );
@@ -166,10 +165,10 @@ public/
 content/
   objects/
     m31/
-      index.md
+      index.yaml
       observations/
-        2024-03-15.md
-        2024-02-20.md
+        2024-03-15.yaml
+        2024-02-20.yaml
 */
 
 export async function getObjectData(designation: string) {
