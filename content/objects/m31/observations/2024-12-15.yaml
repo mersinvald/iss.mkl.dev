@@ -1,4 +1,3 @@
----
 id: 18732d59-ff73-4dbf-8ec8-cf4185780a5b
 date: 2024-12-15T18:24:16Z
 location:
@@ -40,13 +39,13 @@ translations:
       Теперь не могу дождаться, чтобы поехать снова, на более тёмную площадку, с лучшей погодой и условиями луны, правильно выровнять эту штуку и поснимать длинные экспозиции M31, чтобы посмотреть, как долго я смогу обходиться без гида. <br />
       Также, заметка себе: разобраться с экспозицией, детали появятся с более длинными выдержками, но ядро галактики не должно быть переэкспонировано. <br />
       Привет Cuiv и его <a href="https://www.youtube.com/watch?v=XCotRiUIWtg&t=5513s" class="text-red-400">отличному руководству для начинающих</a>
-notes: |
-  First time out with SkyWatcher GTi. 
-  
-  3 hours spent trying to polar align with zero Polaris visibility, duuuh. Site is too bright as is, and it also was a full moon night, with cloudy skies. Conditions 0/10, won't recommend. Experience 10/10, testing new toys is always fun, especially with a friend. <br />
-  After 3-ish hours of trying to align with sub-arcmin error, and then to get autofocusing to work, I left it to shoot as is, and got around 200 frames before we had to pack up and leave. <br />
-  Only 91 useable, processed in PixInsight trial, which I loved: very smooth experience, even if the learning curve is a bit steep. With AI denoisers, background removers, starnet, etc, integrated, making the final touch ups and getting the image to look like somewhat resembling a galaxy was pretty easy overall. <br />
-  Now I'm restless to go again, to a darker site, with better weather and moon conditions, get this thing correctly polar aligned, and shoot some long exposures of M31, to see how long I can get away with without a guider. <br />
-  Also, note to self: figure out exposure, the details will appear with longer exposures, but galaxy core shoudn't be overexposed. <br />
-  Shout out to Cuiv, and his <a href="https://www.youtube.com/watch?v=XCotRiUIWtg&t=5513s" class="text-red-400">excellent beginner's guide</a>
----
+  en:
+    notes: |
+      First time out with SkyWatcher GTi. 
+      
+      3 hours spent trying to polar align with zero Polaris visibility, duuuh. Site is too bright as is, and it also was a full moon night, with cloudy skies. Conditions 0/10, won't recommend. Experience 10/10, testing new toys is always fun, especially with a friend. <br />
+      After 3-ish hours of trying to align with sub-arcmin error, and then to get autofocusing to work, I left it to shoot as is, and got around 200 frames before we had to pack up and leave. <br />
+      Only 91 useable, processed in PixInsight trial, which I loved: very smooth experience, even if the learning curve is a bit steep. With AI denoisers, background removers, starnet, etc, integrated, making the final touch ups and getting the image to look like somewhat resembling a galaxy was pretty easy overall. <br />
+      Now I'm restless to go again, to a darker site, with better weather and moon conditions, get this thing correctly polar aligned, and shoot some long exposures of M31, to see how long I can get away with without a guider. <br />
+      Also, note to self: figure out exposure, the details will appear with longer exposures, but galaxy core shoudn't be overexposed. <br />
+      Shout out to Cuiv, and his <a href="https://www.youtube.com/watch?v=XCotRiUIWtg&t=5513s" class="text-red-400">excellent beginner's guide</a>

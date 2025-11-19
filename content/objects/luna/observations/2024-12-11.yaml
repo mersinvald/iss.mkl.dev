@@ -1,4 +1,3 @@
----
 id: db18f892-baf5-4135-9a13-34b752ba2284
 date: 2024-12-11T00:30:00Z
 location:
@@ -53,13 +52,13 @@ translations:
       Довольно доволен результатом. Я знаю, что это не объект дальнего космоса, но съёмка полного набора калибровочных кадров действительно повлияла на уровень деталей, которые я смог извлечь. <br />
       Редактирование не идеально, но сойдёт. Попробую переделать с PixInsight и деконволютором на основе AI (я применил деконволюцию, но понятия не имею, что делаю, так что, вероятно, можно улучшить, хех). <br />
       Лунные снимки были моей одержимостью в детстве, и теперь, будучи намного старше, значительно более циничным и заметно более толстым, мой внутренний ребёнок всё ещё так взволнован этим изображением, о котором я мог только мечтать сделать своей 1,3-мегапиксельной камерой телефона тогда :D
-notes: |
-  Beautiful Waxing Crescent moon, what else to say? 
-  
-  <br />
-  Tried my hand at stacking moon images first time, and tested out a dedicated astro imaging computer setup, running NINA. Very happy with the software, even got autofocuser to work with my lens, but there are still kinks to work out. <br />
-  Stacked with Siril, had to run a few iterations of Registration process to get the images to align (my tripod slipped during the shoot). <br />
-  Pretty happy with the result. I know it's no DSO, but taking a full set of calibration frames really affected the level of detail I could extract. <br />
-  The edit is not perfect, but I'll do. Will try to re-edit with PixInsignt and an AI-based deconvoluter (I've applied deconvolution, but I have zero idea what I'm doing, so it probably can be improved, heh). <br />
-  Moon shots were my obsession in the childhood, and now, being much older, vastly more cynical and noticeably more fat, my inner child is still just so excited about this image that I could only dream about taking with my 1.3MP phone camera back then :D
----
+  en:
+    notes: |
+      Beautiful Waxing Crescent moon, what else to say? 
+      
+      <br />
+      Tried my hand at stacking moon images first time, and tested out a dedicated astro imaging computer setup, running NINA. Very happy with the software, even got autofocuser to work with my lens, but there are still kinks to work out. <br />
+      Stacked with Siril, had to run a few iterations of Registration process to get the images to align (my tripod slipped during the shoot). <br />
+      Pretty happy with the result. I know it's no DSO, but taking a full set of calibration frames really affected the level of detail I could extract. <br />
+      The edit is not perfect, but I'll do. Will try to re-edit with PixInsignt and an AI-based deconvoluter (I've applied deconvolution, but I have zero idea what I'm doing, so it probably can be improved, heh). <br />
+      Moon shots were my obsession in the childhood, and now, being much older, vastly more cynical and noticeably more fat, my inner child is still just so excited about this image that I could only dream about taking with my 1.3MP phone camera back then :D

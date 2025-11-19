@@ -1,4 +1,3 @@
----
 id: 2bea3187-23cf-465a-9e51-bf7ee6f3a762
 date: 2024-12-11T00:30:00Z
 location:
@@ -45,6 +44,6 @@ translations:
   ru:
     notes: |
       Первая попытка съёмки туманности Ориона со штатива и камерного объектива, крайне неудачная: туманность не видна, только звёзды в созвездии, всё остальное утонуло в шуме чтения :)
-notes: |
-  First attempt at shooting Orion Nebula, with a tripod and a camera lens, vastly unsuccessful: no nebulosity is visible, only the stars in the constellation, everything else drowned in the read noise :)
----
+  en: 
+    notes: |
+      First attempt at shooting Orion Nebula, with a tripod and a camera lens, vastly unsuccessful: no nebulosity is visible, only the stars in the constellation, everything else drowned in the read noise :)

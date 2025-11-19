@@ -1,4 +1,3 @@
----
 id: fd85f3a1-89b2-4771-9311-0269f244dfff
 date: 2024-12-02T02:30:00Z
 location:
@@ -37,11 +36,11 @@ translations:
       Использовал очень быструю экспозицию, и сделал около 100 кадров, но только 50 оказались пригодными. <br />
       Для стекинга взял тёмные кадры, но пропустил флэты и биасы, что, вероятно, было небольшой ошибкой. <br />
       Очень сильно переобработано в Affinity Photo 2, просто чтобы увидеть хоть какие-то детали на галактике. Честно говоря, очень доволен тем, что получил даже такой результат с первой попытки! Но есть много места для улучшения... :)
-notes: |
-  Excellent seeing conditions with no moon. First attempt as DSO photography. 
-  
-  Used very fast exposure, and took arount 100 frames,
-  but only 50 turned out useable. <br />
-  For stacking, took dark frames, but omitted flats and biases, which likely was a bit of a mistake. <br />
-  Very heavily overprocessed in Affinity Photo 2, just to see some detail on the galaxy. Honestly, very happy with getting even this result on my first try! But there's much room for improvement... :)
----
+  en:
+    notes: |
+      Excellent seeing conditions with no moon. First attempt as DSO photography. 
+      
+      Used very fast exposure, and took arount 100 frames,
+      but only 50 turned out useable. <br />
+      For stacking, took dark frames, but omitted flats and biases, which likely was a bit of a mistake. <br />
+      Very heavily overprocessed in Affinity Photo 2, just to see some detail on the galaxy. Honestly, very happy with getting even this result on my first try! But there's much room for improvement... :)
