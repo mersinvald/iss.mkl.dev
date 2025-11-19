@@ -8,6 +8,7 @@ type Language = 'en' | 'ru';
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any                                        
   messages: any;
   t: (key: string, fallback?: string) => string;
   plural: (count: number, forms: { one: string; few: string; many: string }) => string;
@@ -18,6 +19,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any                                        
   const [messages, setMessages] = useState<any>({});
   const router = useRouter();
 
@@ -31,6 +33,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       }
 
       // Detect browser language
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any                                        
       const browserLanguage = navigator.language || (navigator as any).userLanguage;
       
       // Check if browser language starts with 'ru' (covers ru, ru-RU, etc.)
