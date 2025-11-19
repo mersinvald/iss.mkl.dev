@@ -1,21 +1,30 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 import LanguageSwitcher from './LanguageSwitcher';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
-  const t = useTranslations('navigation');
+  const { messages } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || !messages.navigation) {
+    return null;
+  }
 
   const routes = [
-    { href: '/', label: t('objects') },
-    { href: '/timeline', label: t('timeline') },
-    { href: '/about', label: t('about') }
+    { href: '/', label: messages.navigation.objects },
+    { href: '/timeline', label: messages.navigation.timeline },
+    { href: '/about', label: messages.navigation.about }
   ];
 
   const isActive = (path: string) => {
@@ -34,7 +43,7 @@ const Navigation = () => {
               <h1 className="text-xl font-bold text-blue-400">I See Stars</h1>
             </Link>
             <p className="text-sm text-gray-500 hidden sm:block">
-              {t('subtitle')}
+              {messages.navigation.subtitle}
             </p>
           </div>
 
@@ -72,7 +81,7 @@ const Navigation = () => {
 
         <div className="sm:hidden pb-2 -mt-2">
           <p className="text-sm text-gray-500">
-            {t('subtitle')}
+            {messages.navigation.subtitle}
           </p>
         </div>
 

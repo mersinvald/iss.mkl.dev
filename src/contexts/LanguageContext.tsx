@@ -1,40 +1,50 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 type Language = 'en' | 'ru';
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
+  messages: any;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en');
+  const [messages, setMessages] = useState<any>({});
+  const router = useRouter();
 
   useEffect(() => {
-    const cookieLanguage = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('NEXT_LOCALE='))
-      ?.split('=')[1] as Language | undefined;
+    // Get language from localStorage on mount
+    const savedLanguage = localStorage.getItem('NEXT_LOCALE') as Language | null;
+    const initialLanguage = savedLanguage || 'en';
     
-    if (cookieLanguage) {
-      setLanguageState(cookieLanguage);
-    }
+    setLanguageState(initialLanguage);
+    
+    // Load messages for the initial language
+    import(`../../messages/${initialLanguage}.json`).then((module) => {
+      setMessages(module.default);
+    });
   }, []);
 
-  const setLanguage = (lang: Language) => {
+  const setLanguage = async (lang: Language) => {
     setLanguageState(lang);
-    const expires = new Date();
-    expires.setFullYear(expires.getFullYear() + 1);
-    document.cookie = `NEXT_LOCALE=${lang}; expires=${expires.toUTCString()}; path=/`;
-    window.location.reload();
+    localStorage.setItem('NEXT_LOCALE', lang);
+    
+    // Load new messages
+    const newMessages = await import(`../../messages/${lang}.json`);
+    setMessages(newMessages.default);
+    
+    // Force a re-render by refreshing the router
+    router.refresh();
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage }}>
+    <LanguageContext.Provider value={{ language, setLanguage, messages }}>
       {children}
     </LanguageContext.Provider>
   );

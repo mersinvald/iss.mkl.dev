@@ -3,9 +3,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
 import { LanguageProvider } from '@/contexts/LanguageContext'
-import { cookies } from 'next/headers'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -19,8 +17,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const cookieStore = await cookies();
-  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en';
+  // Default to English for static export
+  const locale = 'en';
   const messages = await import(`../../messages/${locale}.json`).then(m => m.default);
 
   return (
