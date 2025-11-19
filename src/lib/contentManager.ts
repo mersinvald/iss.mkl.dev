@@ -99,7 +99,8 @@ export class ContentManager {
             images: {
               ...data.images,
               processed: processedImage,
-            }
+            },
+            translations: data.translations || {}
           });
         })
     );

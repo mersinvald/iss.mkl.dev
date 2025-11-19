@@ -31,7 +31,8 @@ export default async function Timeline() {
           camera: obs.equipment.camera
         },
         previewImageUrl: obs.images.processed.preview,
-        notes: obs.notes
+        notes: obs.notes,
+        translations: obs.translations || {}
       }));
     })
   );
