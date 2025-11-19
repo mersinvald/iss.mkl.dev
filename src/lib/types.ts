@@ -119,7 +119,10 @@ export const observationSchema = z.object({
     }))
   }),
   notes: z.string().optional(),
-  processingDetails: z.string().optional()
+  processingDetails: z.string().optional(),
+  translations: z.record(z.object({
+    notes: z.string().optional(),
+  })).optional()
 });
 
 export const objectSchema = z.object({
@@ -145,7 +148,11 @@ export const objectSchema = z.object({
     discoveryDate: z.string().optional()
   }),
   observations: z.array(z.string().uuid()), // References to observation IDs
-  lastModified: z.string().datetime()
+  lastModified: z.string().datetime(),
+  translations: z.record(z.object({
+    shortDescription: z.string().optional(),
+    description: z.string().optional(),
+  })).optional()
 });
 
 // Export types for use in components

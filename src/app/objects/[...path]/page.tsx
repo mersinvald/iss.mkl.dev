@@ -54,6 +54,9 @@ export default async function Page({ params }: { params: Promise<{ path: string[
     }
   }
 
+  // Extract Russian translation if available
+  const translatedDescription = object.translations?.ru?.description;
+
   return (
     <main className="min-h-screen bg-gray-900 py-8">
       <div className="max-w-7xl mx-auto px-4">
@@ -68,6 +71,7 @@ export default async function Page({ params }: { params: Promise<{ path: string[
         <ObjectViewer 
           designation={object.designation.primary}
           name={object.name}
+          type={object.type}
           categories={object.categories}
           initialObservationIndex={initialObservationIndex}
           observations={observations.map(obs => ({
@@ -79,9 +83,11 @@ export default async function Page({ params }: { params: Promise<{ path: string[
             location: obs.location.name,
             equipment: obs.equipment,
             exposure: `${obs.exposure.total} seconds`,
-            notes: obs.notes
+            notes: obs.notes,
+            translatedNotes: obs.translations?.ru?.notes
           }))}
           description={object.description.full}
+          translatedDescription={translatedDescription}
         />
       </div>
     </main>

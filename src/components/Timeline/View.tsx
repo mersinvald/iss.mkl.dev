@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Calendar, MapPin, Camera } from 'lucide-react';
 import CategoryFilter from '@/components/ui/category-filter';
 import Image from 'next/image';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface TimelineObservation {
   id: string;
@@ -33,6 +34,12 @@ interface TimelineViewProps {
 const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const { messages, language, t, decline } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleCategory = (category: string) => {
     setSelectedCategories(prev =>
@@ -44,13 +51,11 @@ const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories })
 
   const filteredObservations = useMemo(() => {
     return observations.filter(obs => {
-      // Search in designation and name
       const searchMatch = (
         obs.objectDesignation.toLowerCase().includes(searchTerm.toLowerCase()) ||
         obs.objectName.toLowerCase().includes(searchTerm.toLowerCase())
       );
 
-      // Filter by selected categories
       const categoryMatch = selectedCategories.length === 0 ||
         selectedCategories.some(cat => obs.categories.includes(cat));
 
@@ -59,12 +64,17 @@ const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories })
   }, [observations, searchTerm, selectedCategories]);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-GB', {
+    const locale = language === 'ru' ? 'ru-RU' : 'en-GB';
+    return new Date(dateString).toLocaleDateString(locale, {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
   };
+
+  if (!mounted || !messages.timeline) {
+    return null;
+  }
 
   return (
     <div className="space-y-8">
@@ -74,26 +84,24 @@ const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories })
         onCategoryToggle={toggleCategory}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
-        searchPlaceholder="Search observations..."
+        searchPlaceholder={messages.timeline.searchPlaceholder}
       />
 
       {filteredObservations.map((observation) => (
         <Card key={observation.id} className="bg-gray-800 border-gray-700">
           <div className="grid md:grid-cols-3 gap-6 p-6">
-            {/* Image */}
             <div className="relative aspect-[3/2] w-full">
-            <Link href={`/objects/${observation.objectDesignation.toLowerCase()}/${observation.id}`} className="block h-full">
-              <Image
-                src={observation.previewImageUrl}
-                alt={`${observation.objectName} observation from ${formatDate(observation.date)}`}
-                fill
-                className="object-cover object-center rounded-lg"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-            </Link>
-          </div>
+              <Link href={`/objects/${observation.objectDesignation.toLowerCase()}/${observation.id}`} className="block h-full">
+                <Image
+                  src={observation.previewImageUrl}
+                  alt={`${observation.objectName} observation from ${formatDate(observation.date)}`}
+                  fill
+                  className="object-cover object-center rounded-lg"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              </Link>
+            </div>
 
-            {/* Details */}
             <div className="md:col-span-2 space-y-4">
               <div>
                 <Link 
@@ -102,12 +110,12 @@ const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories })
                 >
                   <span className="font-mono">{observation.objectDesignation}</span>
                   {" - "}
-                  {observation.objectName}
+                  {decline(`objectNames.${observation.objectName}`, 'nominative', observation.objectName)}
                 </Link>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {observation.categories.map(category => (
                     <Badge key={category} variant="outline">
-                      {category}
+                      {t(`categories.${category}`, category)}
                     </Badge>
                   ))}
                 </div>
@@ -140,7 +148,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ observations, categories })
 
       {filteredObservations.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-400">No observations found matching your criteria</p>
+          <p className="text-gray-400">{messages.timeline.noObservationsFound}</p>
         </div>
       )}
     </div>

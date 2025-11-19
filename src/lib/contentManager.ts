@@ -49,7 +49,8 @@ export class ContentManager {
       description: {
         short: shortDescription,
         full: description
-      }
+      },
+      translations: data.translations || {}
     };
 
     return objectSchema.parse(objectData);
