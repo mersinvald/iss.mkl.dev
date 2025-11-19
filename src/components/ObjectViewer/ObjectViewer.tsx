@@ -34,6 +34,7 @@ interface ObjectViewerProps {
   categories: string[];
   observations: ObjectObservation[];
   description: string;
+  translatedDescription?: string;
   initialObservationIndex?: number;
 }
 
@@ -43,13 +44,14 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   categories,
   observations,
   description,
+  translatedDescription,
   initialObservationIndex = 0
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(initialObservationIndex);
   const [imageKey, setImageKey] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
-  const { messages } = useLanguage();
+  const { messages, language } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -97,6 +99,9 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   if (!mounted || !messages.objectViewer) {
     return null;
   }
+
+  // Use translated description if available and language is not English
+  const displayDescription = (language !== 'en' && translatedDescription) ? translatedDescription : description;
 
   return (
     <div className="space-y-8">
@@ -192,7 +197,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
             )}
             {currentImage.equipment.filters && (
               <div>
-                <div className="text-gray-400">{messages.objectViewer.filters}</div>
+                <div className="text-gray-400">{messages.objectViewer.filters}< /div>
                 <ul className="list-disc pl-4">
                   {currentImage.equipment.filters.map((filter, index) => (
                     <li key={index}>{filter}</li>
@@ -220,7 +225,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
       <div className="bg-gray-800 rounded-lg p-6">
         <h2 className="text-xl font-semibold mb-4">{messages.objectViewer.about} {name}</h2>
         <div className="prose prose-invert max-w-none">
-          {description.split('\n\n').map((paragraph, index) => (
+          {displayDescription.split('\n\n').map((paragraph, index) => (
             <p key={index} className="mb-4">
               {paragraph}
             </p>
