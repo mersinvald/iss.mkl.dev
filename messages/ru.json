@@ -58,16 +58,32 @@
   },
   "objectNames": {
     "Andromeda Galaxy": "Галактика Андромеды",
-    "Crab Nebula": "Крабовидная туманность"
+    "Crab Nebula": "Крабовидная туманность",
+    "Orion Nebula": "Туманность Ориона",
+    "Pleiades Star Cluster": "Звёздное скопление Плеяды",
+    "Earth's Moon": "Луна"
   },
   "objectTypes": {
     "Spiral Galaxy": "Спиральная галактика",
-    "Supernova Remnant": "Остаток сверхновой"
+    "Supernova Remnant": "Остаток сверхновой",
+    "Diffuse Nebula": "Диффузная туманность",
+    "Open Star Cluster": "Рассеянное звёздное скопление",
+    "Natural Satellite": "Естественный спутник"
   },
   "categories": {
     "Messier": "Мессье",
     "Galaxy": "Галактика",
     "Nebula": "Туманность",
-    "Supernova Remnant": "Остаток сверхновой"
+    "Supernova Remnant": "Остаток сверхновой",
+    "Star Cluster": "Звёздное скопление",
+    "Star-Forming Region": "Область звездообразования",
+    "Planet Satellite": "Спутник планеты",
+    "Solar System": "Солнечная система"
+  },
+  "constellations": {
+    "Andromeda": "Андромеда",
+    "Taurus": "Телец",
+    "Orion": "Орион",
+    "N/A": "Н/Д"
   }
 }

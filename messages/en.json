@@ -58,16 +58,32 @@
   },
   "objectNames": {
     "Andromeda Galaxy": "Andromeda Galaxy",
-    "Crab Nebula": "Crab Nebula"
+    "Crab Nebula": "Crab Nebula",
+    "Orion Nebula": "Orion Nebula",
+    "Pleiades Star Cluster": "Pleiades Star Cluster",
+    "Earth's Moon": "Earth's Moon"
   },
   "objectTypes": {
     "Spiral Galaxy": "Spiral Galaxy",
-    "Supernova Remnant": "Supernova Remnant"
+    "Supernova Remnant": "Supernova Remnant",
+    "Diffuse Nebula": "Diffuse Nebula",
+    "Open Star Cluster": "Open Star Cluster",
+    "Natural Satellite": "Natural Satellite"
   },
   "categories": {
     "Messier": "Messier",
     "Galaxy": "Galaxy",
     "Nebula": "Nebula",
-    "Supernova Remnant": "Supernova Remnant"
+    "Supernova Remnant": "Supernova Remnant",
+    "Star Cluster": "Star Cluster",
+    "Star-Forming Region": "Star-Forming Region",
+    "Planet Satellite": "Planet Satellite",
+    "Solar System": "Solar System"
+  },
+  "constellations": {
+    "Andromeda": "Andromeda",
+    "Taurus": "Taurus",
+    "Orion": "Orion",
+    "N/A": "N/A"
   }
 }
