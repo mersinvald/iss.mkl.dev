@@ -54,10 +54,6 @@ export default async function Page({ params }: { params: Promise<{ path: string[
     }
   }
 
-  // Extract descriptions from translations
-  const englishDescription = object.translations?.en?.description || '';
-  const russianDescription = object.translations?.ru?.description;
-
   return (
     <main className="min-h-screen bg-gray-900 py-8">
       <div className="max-w-7xl mx-auto px-4">
@@ -85,10 +81,9 @@ export default async function Page({ params }: { params: Promise<{ path: string[
             equipment: obs.equipment,
             exposure: `${obs.exposure.total} seconds`,
             notes: obs.notes,
-            translatedNotes: obs.translations?.ru?.notes
+            translatedNotes: obs.translations
           }))}
-          description={englishDescription}
-          translatedDescription={russianDescription}
+          descriptionTranslations={object.translations}
         />
       </div>
     </main>

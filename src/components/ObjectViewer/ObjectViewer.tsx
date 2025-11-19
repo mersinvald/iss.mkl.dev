@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import ImageViewer from '@/components/ui/image-viewer';
 import Notes from '@/components/ObjectViewer/Notes';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Translation } from '@/lib/types';
 
 interface EquipmentInfo {
   telescope?: string;
@@ -26,7 +27,7 @@ interface ObjectObservation {
   equipment: EquipmentInfo;
   exposure?: string;
   notes?: string;
-  translatedNotes?: string;
+  translatedNotes?: Record<string, Translation>;
 }
 
 interface ObjectViewerProps {
@@ -35,8 +36,7 @@ interface ObjectViewerProps {
   type: string;
   categories: string[];
   observations: ObjectObservation[];
-  description: string;
-  translatedDescription?: string;
+  descriptionTranslations?: Record<string, Translation>;
   initialObservationIndex?: number;
 }
 
@@ -46,15 +46,14 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
   type,
   categories,
   observations,
-  description,
-  translatedDescription,
+  descriptionTranslations,
   initialObservationIndex = 0
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(initialObservationIndex);
   const [imageKey, setImageKey] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
-  const { messages, language, t, decline } = useLanguage();
+  const { messages, language, t, decline, translate } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -74,7 +73,7 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const locale = language === 'ru' ? 'ru-RU' : 'en-GB';
+    const locale = language === 'ru' ? 'ru-RU' : language === 'en' ? 'en-GB' : 'en-GB';
     return date.toLocaleDateString(locale, {
       year: 'numeric',
       month: 'long',
@@ -108,13 +107,28 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
     return null;
   }
 
-  // Use translated description if available and language is not English
-  const displayDescription = (language !== 'en' && translatedDescription) ? translatedDescription : description;
+  // Use translate helper to get the description in current language
+  const displayDescription = descriptionTranslations 
+    ? translate(
+        Object.fromEntries(
+          Object.entries(descriptionTranslations).map(([lang, trans]) => [lang, trans.description || ''])
+        ),
+        ''
+      )
+    : '';
+
   const translatedName = t(`objectNames.${name}`, name);
   const translatedNamePrepositional = decline(`objectNames.${name}`, 'prepositional', name);
   
-  // Use translated notes if available and language is not English
-  const displayNotes = (language !== 'en' && currentImage.translatedNotes) ? currentImage.translatedNotes : currentImage.notes;
+  // Use translate helper to get the notes in current language
+  const displayNotes = currentImage.translatedNotes
+    ? translate(
+        Object.fromEntries(
+          Object.entries(currentImage.translatedNotes).map(([lang, trans]) => [lang, trans.notes || ''])
+        ),
+        currentImage.notes || ''
+      )
+    : currentImage.notes || '';
 
   return (
     <div className="space-y-8">
@@ -236,16 +250,18 @@ export const ObjectViewer: React.FC<ObjectViewerProps> = ({
         </div>
       )}
 
-      <div className="bg-gray-800 rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">{messages.objectViewer.about} {translatedNamePrepositional}</h2>
-        <div className="prose prose-invert max-w-none">
-          {displayDescription.split('\n\n').map((paragraph, index) => (
-            <p key={index} className="mb-4">
-              {paragraph}
-            </p>
-          ))}
+      {displayDescription && (
+        <div className="bg-gray-800 rounded-lg p-6">
+          <h2 className="text-xl font-semibold mb-4">{messages.objectViewer.about} {translatedNamePrepositional}</h2>
+          <div className="prose prose-invert max-w-none">
+            {displayDescription.split('\n\n').map((paragraph, index) => (
+              <p key={index} className="mb-4">
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
