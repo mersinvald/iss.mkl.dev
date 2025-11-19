@@ -34,30 +34,37 @@ translations:
   ru:
     notes: |
       Крабовидная туманность в узкополосном режиме HOO через 3нм фильтр, Bortle 8
+      <br />
       
       Обработка в PixInsight 1.9.3:
-      - SpectrophotometricColorCalibration (SCC) для точной цветопередачи
-      - NoiseXTerminator для шумоподавления
-      - BlurXTerminator для деконволюции и повышения резкости
-      - StarXTerminator для разделения звёзд
-      - Statistical stretch для начальной настройки динамического диапазона
-      - Финальная настройка кривых для контраста и цветового баланса
+      - SpectrophotometricColorCalibration (SCC)
+      - NoiseXTerminator
+      - BlurXTerminator
+      - StarXTerminator
+      - Statistical stretch
+      - Финишные штрихи кривыми
 
+      <br />
       Первая многоночная съёмка с 2024 года :)
 
-      Я глупо забыл поменять редуктор 0.8x на флэттенер 1x перед началом, и понял это только после ~200 кадров. Ну что ж, повод переснять, особенно учитывая, что я только что получил новый набор фильтров Askar E1/E2 для съёмки в HSO!
+      <br />
+      Я по-глупости забыл поменять редуктор 0.8x на флэттенер 1x перед началом, и понял это только после ~200 кадров. 
+      Штош, повод переснять, особенно учитывая, что я только что взял новый набор фильтров Askar E1/E2 для съёмки в HSO!
   en:
     notes: |
       Crab HOO narrowband through a 3nm filter, Bortle 8
-      
+      <br />
+
       Processing workflow in PixInsight 1.9.3:
-      - SpectrophotometricColorCalibration (SCC) for accurate color rendition
-      - NoiseXTerminator for noise reduction
-      - BlurXTerminator for deconvolution and sharpening
-      - StarXTerminator for star separation
-      - Statistical stretch for initial dynamic range adjustment
-      - Final curves adjustments for contrast and color balance
+      - SpectrophotometricColorCalibration (SCC) 
+      - NoiseXTerminator 
+      - BlurXTerminator 
+      - StarXTerminator 
+      - Statistical stretch 
+      - Final curves adjustments 
+      <br />
 
       First multi-night imaging session since 2024 :)
 
+      <br />
       I have stupidly forgot to change the 0.8x reducer to 1x flattener before I started, and only realized that ~200 images in. Oh well, an opportunity to re-capture I guess, especially since I've just got a new set of Askar E1/E2 filters to image in HSO!
