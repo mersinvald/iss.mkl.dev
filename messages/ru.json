@@ -118,6 +118,14 @@
       "accusative": "Луну",
       "instrumental": "Луной",
       "prepositional": "Луне"
+    },
+    "Jellyfish Nebula": {
+      "nominative": "Туманность Jellyfish",
+      "genitive": "Туманности Jellyfish",
+      "dative": "Туманности Jellyfish",
+      "accusative": "Туманность Jellyfish",
+      "instrumental": "Туманностью Jellyfish",
+      "prepositional": "Туманности Jellyfish"
     }
   },
   "objectTypes": {

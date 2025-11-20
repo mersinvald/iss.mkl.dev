@@ -1,0 +1,44 @@
+id: b29dc887-1f38-49d5-9f54-3cfe353e993a 
+designation:
+  primary: IC443
+  alternates:
+    - Sh2-248
+name: Jellyfish Nebula
+type: Supernova Remnant
+categories:
+  - Nebula
+  - Supernova Remnant
+coordinates:
+  rightAscension: 06h 17m 13s
+  declination: +22° 31' 05"
+constellation: Gemini
+metadata:
+  magnitude: 12.0
+  size: 50 arcminutes
+  distance: 5,000 light-years
+  discoveredBy: Unknown
+  discoveryDate: 1892
+observations:
+  - 33d88683-69af-4bca-96c6-b6a9dce73e75
+lastModified: 2025-11-20T12:00:00Z
+translations:
+  en:
+    shortDescription: "IC 443 is a galactic supernova remnant in the constellation Gemini, also known as the Jellyfish Nebula."
+    description: |
+      IC 443, also known as the Jellyfish Nebula and Sharpless 248 (Sh2-248), is a galactic supernova remnant in the constellation Gemini. On the plane of the sky, it is located near the star Eta Geminorum. Its distance is roughly 5,000 light-years from Earth.
+
+      IC 443 may be the remains of a supernova that occurred 30,000 - 35,000 years ago. The same supernova event likely created the neutron star CXOU J061705.3+222127, the collapsed remnant of the stellar core. IC 443 is one of the best-studied cases of supernova remnants interacting with surrounding molecular clouds.
+
+      The nebula is an extended source, having an angular diameter of 50 arcminutes. At the estimated distance of 5,000 light-years from Earth, it corresponds to a physical size of roughly 70 light years. The supernova remnant's optical and radio morphology is shell-like, consisting of two connected sub-shells with different centers and radii.
+
+      The remnant is evolving in a rich and complex environment, which strongly affects its morphology. The blast wave is interacting with dense molecular clouds in different regions, creating the characteristic jellyfish-like appearance with bright filaments and complex structures. The location in a star forming region and the presence of a neutron star favor a Type II supernova as the progenitor explosion.
+  ru:
+    shortDescription: "IC 443 — галактический остаток сверхновой в созвездии Близнецов, также известный как туманность Медуза."
+    description: |
+      IC 443, также известная как туманность Медуза и Шарплесс 248 (Sh2-248), представляет собой галактический остаток сверхновой в созвездии Близнецов. На небесной сфере она расположена вблизи звезды Эта Близнецов. Её расстояние от Земли составляет примерно 5000 световых лет.
+
+      IC 443 может быть остатком сверхновой, которая произошла 30 000 - 35 000 лет назад. То же событие сверхновой, вероятно, создало нейтронную звезду CXOU J061705.3+222127, коллапсировавший остаток звёздного ядра. IC 443 является одним из наиболее изученных случаев взаимодействия остатков сверхновых с окружающими молекулярными облаками.
+
+      Туманность представляет собой протяжённый источник с угловым диаметром 50 угловых минут. На расчётном расстоянии 5000 световых лет от Земли это соответствует физическому размеру примерно 70 световых лет. Оптическая и радиоморфология остатка сверхновой имеет оболочечную структуру, состоящую из двух связанных подоболочек с разными центрами и радиусами.
+
+      Обьект эволюционирует в богатой и сложной среде, что сильно влияет на его морфологию. Ударная волна взаимодействует с плотными молекулярными облаками в разных областях, создавая характерный вид медузы с яркими волокнами и сложными структурами. Расположение в области звездообразования и наличие нейтронной звезды указывают на сверхновую типа II как на прародителя взрыва.

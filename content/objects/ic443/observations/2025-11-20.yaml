@@ -1,0 +1,78 @@
+id: 33d88683-69af-4bca-96c6-b6a9dce73e75
+date: 2025-11-20T18:00:00Z
+location:
+  name: Home
+  latitude: 25.2048
+  longitude: 55.2708
+  elevation: 0
+equipment:
+  telescope: Sky-Rover 102mm APO PRO + 0.8x RF
+  camera: ZWO ASI2600MC Pro
+  mount: Juwei 17
+  filters:
+    - Optolong L-Ultimate
+conditions:
+  seeing: 4
+  transparency: 4
+  moonPhase: 0
+  temperature: 30
+exposure:
+  total: 48000
+  focal_length: 573
+  focal_ratio: f/5.6
+  subFrames:
+    - duration: 300
+      count: 160
+      gain: 100
+      binning: 1
+      filter: Optolong L-Ultimate
+processing:
+  drizzle: 2x
+  software: PixInsight 1.9.3
+images:
+  processed:
+    preview: preview.jpg
+    publish: publish.jpg
+translations:
+  ru:
+    notes: |
+      Туманность Медуза (IC 443) в модифицированной палитре Forexx через 3нм фильтр, Bortle 8
+      <br />
+    
+      Несложный большой обьект для сьемки, но требующий большого количества данных, из-за тусклости большой части структуры. 
+      Обработка заняла много времени, потому что я никак не мог подобрать правильную комбинцию настроек деконволюции, денойза и пре-стретча, чтобы потом изображение не разваливалось в постобработке.
+      Много игрался с разными техниками, большинство из которых не дало хорошего результата.
+      <br />
+      
+      Финальный процесс:
+      1. GraXper: удаление градиента
+      2. SpectrophotometricColorCalibration
+      3. Сплит каналов в Ha и OIII
+      4. NoiseXTerminator на моноканалах (0.75)
+      5. BlurXTerminator на моноканалах (да, после денойза, поперек рекомендаций разработчика, но так артефактов в фоне вышло меньше)
+      6. Рекомбинация каналов в Forexx (PerfectPallettePicker)
+      7. StarXTerminator 
+      8. Кривые 
+      9. Рекомбинация звезд и туманности
+      10. Ресемплинг 0.5x
+  en:
+    notes: |
+      Jellyfish Nebula (IC 443) in modified Forexx palette through a 3nm filter, Bortle 8
+      <br />
+
+      A straightforward large target to capture, but requiring a lot of data due to the faintness of much of the structure.
+      Processing took a long time because I couldn't find the right combination of deconvolution, denoising, and pre-stretch settings to prevent the image from falling apart in post-processing.
+      Experimented with many different techniques, most of which didn't yield good results.
+      <br />
+      
+      Final processing workflow:
+      1. GraXper: gradient removal
+      2. SpectrophotometricColorCalibration
+      3. Channel split into Ha and OIII
+      4. NoiseXTerminator on mono channels (0.75)
+      5. BlurXTerminator on mono channels (yes, after denoising, contrary to developer recommendations, but this resulted in fewer background artifacts)
+      6. Channel recombination in Forexx (PerfectPalettePicker)
+      7. StarXTerminator
+      8. Curves
+      9. Star and nebula recombination
+      10. Resampling 0.5x
